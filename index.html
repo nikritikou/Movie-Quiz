@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Movie?</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #14001f, #31001f, #080808);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .quiz {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #cfcfcf;
+      margin-bottom: 35px;
+    }
+
+    .progress {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 20px;
+      border: 1px solid #ffffff33;
+      border-radius: 18px;
+      background: #ffffff12;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ffffff25;
+      transform: scale(1.02);
+    }
+
+    .result {
+      display: none;
+    }
+
+    .movie {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 25px 0;
+      color: #ffb3d9;
+    }
+
+    .restart {
+      background: #ff4f9a;
+      border: none;
+      margin-top: 20px;
+    }
+
+    .restart:hover {
+      background: #ff2f87;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="quiz">
+
+  <div id="quizScreen">
+
+    <h1>🎬 Which Movie?</h1>
+
+    <div class="subtitle">
+      Απάντησε στις ερωτήσεις και θα βρούμε την ταινία σου.
+    </div>
+
+    <div class="progress" id="progress"></div>
+
+    <div class="question" id="question"></div>
+
+    <div class="choices" id="choices"></div>
+
+  </div>
+
+
+  <div class="result" id="result">
+
+    <h1>✨ Your movie is...</h1>
+
+    <div class="movie" id="movie"></div>
+
+    <p id="message"></p>
+
+    <button class="restart" id="restart">
+      🔄 Try again
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+  {
+    question: "Τι mood έχεις;",
+    choices: [
+      { text: "💕 Romance", movie: 1 },
+      { text: "👻 Something creepy", movie: 2 }
+    ]
+  },
+
+  {
+    question: "Τι προτιμάς;",
+    choices: [
+      { text: "🧠 Psychological", movie: 2 },
+      { text: "🧙 Fantasy & magic", movie: 0 }
+    ]
+  },
+
+  {
+    question: "Τι σε τραβάει περισσότερο;",
+    choices: [
+      { text: "❤️ Love & friendship", movie: 1 },
+      { text: "🖤 Mystery & danger", movie: 3 }
+    ]
+  },
+
+  {
+    question: "Ποιο vibe θέλεις;",
+    choices: [
+      { text: "🌙 Dark & mysterious", movie: 3 },
+      { text: "✨ Magical & strange", movie: 0 }
+    ]
+  },
+
+  {
+    question: "Θες να συγκινηθείς ή να φοβηθείς;",
+    choices: [
+      { text: "😭 Να συγκινηθώ", movie: 1 },
+      { text: "😨 Να φοβηθώ", movie: 2 }
+    ]
+  },
+
+  {
+    question: "Διάλεξε ένα:",
+    choices: [
+      { text: "👥 Friendship", movie: 1 },
+      { text: "📓 Dark secrets", movie: 3 }
+    ]
+  },
+
+  {
+    question: "Ποιο σκηνικό προτιμάς;",
+    choices: [
+      { text: "🏠 A mysterious house", movie: 2 },
+      { text: "🌲 A strange magical world", movie: 0 }
+    ]
+  },
+
+  {
+    question: "Τελευταία επιλογή...",
+    choices: [
+      { text: "💗 Emotional", movie: 1 },
+      { text: "🖤 Disturbing", movie: 3 }
+    ]
+  }
+
+];
+
+
+const movies = [
+  "🧙 Οι Μάγισσες",
+  "💜 Το Πλεονέκτημα του να Ζεις στο Περιθώριο",
+  "👻 Η Έκτη Αίσθηση",
+  "📓 Τετράδιο Θανάτου"
+];
+
+
+let currentQuestion = 0;
+
+let scores = [0, 0, 0, 0];
+
+
+const questionElement = document.getElementById("question");
+const choicesElement = document.getElementById("choices");
+const progressElement = document.getElementById("progress");
+
+const quizScreen = document.getElementById("quizScreen");
+const resultScreen = document.getElementById("result");
+
+const movieElement = document.getElementById("movie");
+const messageElement = document.getElementById("message");
+
+const restartButton = document.getElementById("restart");
+
+
+function showQuestion() {
+
+  const question = questions[currentQuestion];
+
+  progressElement.textContent =
+    `Question ${currentQuestion + 1} / ${questions.length}`;
+
+  questionElement.textContent = question.question;
+
+  choicesElement.innerHTML = "";
+
+
+  question.choices.forEach(choice => {
+
+    const button = document.createElement("button");
+
+    button.textContent = choice.text;
+
+    button.addEventListener("click", () => {
+
+      scores[choice.movie]++;
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+
+        showQuestion();
+
+      } else {
+
+        showResult();
+
+      }
+
+    });
+
+    choicesElement.appendChild(button);
+
+  });
+
+}
+
+
+function showResult() {
+
+  let winner = 0;
+
+  for (let i = 1; i < scores.length; i++) {
+
+    if (scores[i] > scores[winner]) {
+      winner = i;
+    }
+
+  }
+
+
+  movieElement.textContent = movies[winner];
+
+  messageElement.textContent =
+    "Πάρε popcorn και πάτα play. 🍿";
+
+
+  quizScreen.style.display = "none";
+
+  resultScreen.style.display = "block";
+
+}
+
+
+restartButton.addEventListener("click", () => {
+
+  currentQuestion = 0;
+
+  scores = [0, 0, 0, 0];
+
+  resultScreen.style.display = "none";
+
+  quizScreen.style.display = "block";
+
+  showQuestion();
+
+});
+
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
