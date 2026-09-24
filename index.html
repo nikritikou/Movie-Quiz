@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Date Quiz</title>
+
+    <title>Movie Date</title>
 
     <style>
         * {
@@ -31,104 +32,100 @@
             background: #4d1721;
             border-radius: 18px;
             padding: 45px 35px;
-            text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
         }
 
         h1 {
             font-size: 32px;
+            margin: 0 0 30px;
             font-weight: 500;
-            margin-bottom: 30px;
-            letter-spacing: 0.5px;
-        }
-
-        h2 {
-            font-size: 25px;
-            font-weight: 500;
-            line-height: 1.4;
-            margin-bottom: 30px;
-        }
-
-        p {
-            font-size: 18px;
-            line-height: 1.8;
-            margin: 0 0 20px;
         }
 
         .intro-text {
+            font-size: 18px;
+            line-height: 1.8;
             margin-bottom: 35px;
         }
 
         .intro-text strong {
-            font-weight: 600;
-        }
-
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        .start-button,
-        .restart-button {
-            border: none;
-            background: white;
-            color: #641f2b;
-            padding: 14px 35px;
-            border-radius: 30px;
-            font-size: 17px;
-            font-family: inherit;
-            font-weight: 600;
-            transition: 0.2s ease;
-        }
-
-        .start-button:hover,
-        .restart-button:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .quiz-screen,
-        .result-screen {
-            display: none;
+            font-weight: 700;
         }
 
         .question-number {
-            font-size: 14px;
-            opacity: 0.7;
+            font-size: 15px;
+            opacity: 0.75;
             margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 25px;
+            line-height: 1.5;
+            margin-bottom: 30px;
         }
 
         .answers {
             display: flex;
             flex-direction: column;
-            gap: 13px;
-            margin-top: 25px;
+            gap: 14px;
         }
 
-        .answer-button {
+        .answer {
             width: 100%;
+            padding: 17px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.45);
             color: white;
-            padding: 16px 18px;
-            border-radius: 12px;
-            font-size: 16px;
             font-family: inherit;
+            font-size: 16px;
             line-height: 1.5;
-            text-align: left;
-            transition: 0.2s ease;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .answer-button:hover {
+        .answer:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: white;
+            border-color: rgba(255, 255, 255, 0.55);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            color: #641f2b;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .movie-image {
+            width: min(100%, 320px);
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 30px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
 
         .movie-title {
-            font-size: 31px;
-            font-weight: 600;
-            margin-bottom: 35px;
-            line-height: 1.3;
+            font-size: 30px;
+            line-height: 1.4;
+            margin: 0 0 30px;
+            font-weight: 500;
         }
 
         .result-text {
@@ -138,10 +135,6 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 12px;
-            }
-
             .card {
                 padding: 35px 22px;
             }
@@ -150,21 +143,29 @@
                 font-size: 27px;
             }
 
-            h2 {
-                font-size: 21px;
-            }
-
-            p {
+            .intro-text {
                 font-size: 16px;
             }
 
-            .answer-button {
+            .question {
+                font-size: 21px;
+            }
+
+            .answer {
                 font-size: 15px;
                 padding: 15px;
             }
 
             .movie-title {
-                font-size: 26px;
+                font-size: 25px;
+            }
+
+            .result-text {
+                font-size: 18px;
+            }
+
+            .movie-image {
+                max-width: 280px;
             }
         }
     </style>
@@ -175,51 +176,39 @@
 <div class="container">
 
     <!-- INTRO -->
-    <div class="card intro-screen" id="introScreen">
+    <div id="introScreen" class="card">
 
-        <h1>Σήμερα έχουμε το καθιερωμένο μας ραντεβού.</h1>
+        <h1>Movie Date</h1>
 
         <div class="intro-text">
-            <p>
-                Μόνο που υπάρχει ένα μικρό "πρόβλημα"…
-            </p>
+            Σήμερα έχουμε το καθιερωμένο μας ραντεβού.<br><br>
 
-            <p>
-                <strong>Πάντα διαλέγω εγώ την ταινία.</strong>
-            </p>
+            Μόνο που υπάρχει ένα μικρό "πρόβλημα"…<br><br>
 
-            <p>
-                Οπότε σήμερα αποφάσισα να σε εμπιστευτώ λίγο περισσότερο.<br>
-                Αυτή τη φορά <strong>θα διαλέξεις εσύ.</strong>
-            </p>
+            <strong>Πάντα διαλέγω εγώ την ταινία.</strong><br><br>
 
-            <p>
-                Θα σου κάνω μερικές ερωτήσεις και, ανάλογα με τις επιλογές σου,
-                θα βρούμε <strong>ποια ταινία είναι για απόψε.</strong>
-            </p>
+            Οπότε σήμερα αποφάσισα να σε εμπιστευτώ λίγο περισσότερο.
+            Αυτή τη φορά <strong>θα διαλέξεις εσύ.</strong><br><br>
 
-            <p>
-                Έτοιμος;
-            </p>
+            Θα σου κάνω μερικές ερωτήσεις και, ανάλογα με τις επιλογές σου,
+            θα βρούμε <strong>ποια ταινία είναι για απόψε.</strong><br><br>
 
-            <p>
-                <strong>Πάμε.</strong>
-            </p>
+            Έτοιμος;<br><br>
+
+            <strong>Πάμε.</strong>
         </div>
 
-        <button class="start-button" onclick="startQuiz()">
-            Ξεκινάμε
-        </button>
+        <button class="button" onclick="startQuiz()">Ξεκινάμε</button>
 
     </div>
 
 
     <!-- QUIZ -->
-    <div class="card quiz-screen" id="quizScreen">
+    <div id="quizScreen" class="card hidden">
 
         <div class="question-number" id="questionNumber"></div>
 
-        <h2 id="questionText"></h2>
+        <div class="question" id="question"></div>
 
         <div class="answers" id="answers"></div>
 
@@ -227,17 +216,24 @@
 
 
     <!-- RESULT -->
-    <div class="card result-screen" id="resultScreen">
+    <div id="resultScreen" class="card hidden">
 
-        <div class="movie-title" id="movieTitle"></div>
+        <img
+            id="movieImage"
+            class="movie-image"
+            src=""
+            alt=""
+        >
+
+        <h1 class="movie-title" id="movieTitle"></h1>
 
         <div class="result-text">
-            Νομίζω πως έκανες καλή επιλογή.
-            <br>
+            Νομίζω πως έκανες καλή επιλογή.<br><br>
+
             Ραντεβού το βράδυ.
         </div>
 
-        <button class="restart-button" onclick="restartQuiz()">
+        <button class="button" onclick="restartQuiz()">
             Ξανά
         </button>
 
@@ -249,10 +245,22 @@
 <script>
 
     const movies = [
-        "Να με θυμάσαι",
-        "Η Μυστική Γυναίκα",
-        "Τα Πλεονεκτήματα του να Είσαι στο Περιθώριο",
-        "Death Note"
+        {
+            title: "Να με θυμάσαι",
+            image: "images/remember-me.jpg"
+        },
+        {
+            title: "Η Μυστική Γυναίκα",
+            image: "images/secret-woman.jpg"
+        },
+        {
+            title: "Τα Πλεονεκτήματα του να Είσαι στο Περιθώριο",
+            image: "images/perks.jpg"
+        },
+        {
+            title: "Death Note",
+            image: "images/death-note.jpg"
+        }
     ];
 
 
@@ -260,15 +268,7 @@
 
         {
             question: "Βρίσκεις ένα μυστικό. Τι κάνεις;",
-            choices: [
-                {
-                    text: "Προσπαθώ να ανακαλύψω τι ακριβώς κρύβεται πίσω από αυτό.",
-                    movie: 1
-                },
-                {
-                    text: "Το κρατάω για μένα, ειδικά αν αφορά κάποιον που αγαπώ.",
-                    movie: 0
-                },
+            answers: [
                 {
                     text: "Το μοιράζομαι με κάποιον που εμπιστεύομαι.",
                     movie: 2
@@ -276,21 +276,21 @@
                 {
                     text: "Δεν μπορώ να το αφήσω ήσυχο. Θέλω οπωσδήποτε να μάθω περισσότερα.",
                     movie: 3
+                },
+                {
+                    text: "Το κρατάω για μένα, ειδικά αν αφορά κάποιον που αγαπώ.",
+                    movie: 0
+                },
+                {
+                    text: "Προσπαθώ να ανακαλύψω τι ακριβώς κρύβεται πίσω από αυτό.",
+                    movie: 1
                 }
             ]
         },
 
         {
             question: "Αν ήξερες ότι υπάρχει κάτι που πρέπει να ξέρεις, αλλά δεν το ξέρεις, τι κάνεις;",
-            choices: [
-                {
-                    text: "Θα ψάξω μέχρι να βρω την αλήθεια.",
-                    movie: 1
-                },
-                {
-                    text: "Θα περιμένω μέχρι να μου το αποκαλύψει ο σωστός άνθρωπος.",
-                    movie: 0
-                },
+            answers: [
                 {
                     text: "Θα προσπαθήσω να καταλάβω μόνος μου τι συμβαίνει.",
                     movie: 2
@@ -298,13 +298,29 @@
                 {
                     text: "Θα κάνω ό,τι χρειάζεται για να μάθω την αλήθεια.",
                     movie: 3
+                },
+                {
+                    text: "Θα ψάξω μέχρι να βρω την αλήθεια.",
+                    movie: 1
+                },
+                {
+                    text: "Θα περιμένω μέχρι να μου το αποκαλύψει ο σωστός άνθρωπος.",
+                    movie: 0
                 }
             ]
         },
 
         {
             question: "Ποιο από τα παρακάτω θα σε έκανε να αλλάξεις γνώμη για κάποιον;",
-            choices: [
+            answers: [
+                {
+                    text: "Να δω μια κακή πλευρά του που δεν είχα φανταστεί ποτέ.",
+                    movie: 3
+                },
+                {
+                    text: "Να καταλάβω ότι τελικά δεν τον γνώριζα τόσο καλά όσο νόμιζα.",
+                    movie: 0
+                },
                 {
                     text: "Να μάθω ότι μου έκρυψε κάτι πολύ σημαντικό.",
                     movie: 1
@@ -312,43 +328,39 @@
                 {
                     text: "Να ανακαλύψω ότι περνούσε κάτι δύσκολο και δεν μου το είπε.",
                     movie: 2
-                },
-                {
-                    text: "Να καταλάβω ότι τελικά δεν τον γνώριζα τόσο καλά όσο νόμιζα.",
-                    movie: 0
-                },
-                {
-                    text: "Να δω μια κακή πλευρά του που δεν είχα φανταστεί ποτέ.",
-                    movie: 3
                 }
             ]
         },
 
         {
             question: "Αν ήσουν χαρακτήρας σε μια ταινία, ποιος θα ήσουν;",
-            choices: [
-                {
-                    text: "Αυτός που θα έκανε τα πάντα για τον άνθρωπο που αγαπά.",
-                    movie: 0
-                },
+            answers: [
                 {
                     text: "Αυτός που προσπαθεί να καταλάβει τι πραγματικά συμβαίνει.",
                     movie: 1
+                },
+                {
+                    text: "Αυτός που αποκτά μια δύναμη και θέλει να δει μέχρι πού μπορεί να φτάσει.",
+                    movie: 3
                 },
                 {
                     text: "Αυτός που ίσως νιώθει διαφορετικός, αλλά βρίσκει τους ανθρώπους που τον κάνουν να νιώθει ότι ανήκει.",
                     movie: 2
                 },
                 {
-                    text: "Αυτός που αποκτά μια δύναμη και θέλει να δει μέχρι πού μπορεί να φτάσει.",
-                    movie: 3
+                    text: "Αυτός που θα έκανε τα πάντα για τον άνθρωπο που αγαπά.",
+                    movie: 0
                 }
             ]
         },
 
         {
             question: "Κάποιος σου λέει ότι δεν μπορείς να κάνεις κάτι. Τι κάνεις;",
-            choices: [
+            answers: [
+                {
+                    text: "Θα βρω τον δικό μου τρόπο να το κάνω.",
+                    movie: 1
+                },
                 {
                     text: "Το κάνω απλώς και μόνο επειδή μου είπε ότι δεν μπορώ.",
                     movie: 3
@@ -360,39 +372,43 @@
                 {
                     text: "Θα προσπαθήσω να καταλάβω γιατί πιστεύει ότι δεν μπορώ.",
                     movie: 2
-                },
-                {
-                    text: "Θα βρω τον δικό μου τρόπο να το κάνω.",
-                    movie: 1
                 }
             ]
         },
 
         {
             question: "Σε τι mood είσαι;",
-            choices: [
+            answers: [
+                {
+                    text: "Σκοτεινό. Θέλω κάτι που να με βάλει σε mood αναζήτησης.",
+                    movie: 3
+                },
                 {
                     text: "Ρομαντικό. Θέλω κάτι που να με κάνει να νιώσω.",
                     movie: 0
-                },
-                {
-                    text: "Μυστηριώδες. Θέλω να προσπαθώ να καταλάβω τι συμβαίνει.",
-                    movie: 1
                 },
                 {
                     text: "Χαλαρό και λίγο συναισθηματικό. Θέλω κάτι που να με ηρεμήσει.",
                     movie: 2
                 },
                 {
-                    text: "Σκοτεινό. Θέλω κάτι που να με βάλει σε mood αναζήτησης.",
-                    movie: 3
+                    text: "Μυστηριώδες. Θέλω να προσπαθώ να καταλάβω τι συμβαίνει.",
+                    movie: 1
                 }
             ]
         },
 
         {
             question: "Θα ήθελες να αλλάξεις κάτι από το παρελθόν σου; Και αν ναι, γιατί;",
-            choices: [
+            answers: [
+                {
+                    text: "Ναι, αν μπορούσα να αλλάξω τις συνέπειες μιας απόφασης που πήρα.",
+                    movie: 3
+                },
+                {
+                    text: "Ναι, αλλά μόνο αν αυτό σήμαινε ότι θα γινόμουν καλύτερος άνθρωπος.",
+                    movie: 2
+                },
                 {
                     text: "Ναι, αν μπορούσα να προστατεύσω κάποιον που αγαπώ.",
                     movie: 0
@@ -400,25 +416,13 @@
                 {
                     text: "Ναι, αν αυτό θα με βοηθούσε να καταλάβω τι πραγματικά συνέβη.",
                     movie: 1
-                },
-                {
-                    text: "Ναι, αλλά μόνο αν αυτό σήμαινε ότι θα γινόμουν καλύτερος άνθρωπος.",
-                    movie: 2
-                },
-                {
-                    text: "Ναι, αν μπορούσα να αλλάξω τις συνέπειες μιας απόφασης που πήρα.",
-                    movie: 3
                 }
             ]
         },
 
         {
             question: "Αν δεν βλέπαμε ταινία, πού θα ήθελες να ήμασταν;",
-            choices: [
-                {
-                    text: "Σε μια νυχτερινή βόλτα, οι δυο μας, χωρίς να χρειάζεται να μιλάμε.",
-                    movie: 0
-                },
+            answers: [
                 {
                     text: "Σε ένα ήσυχο μέρος όπου θα μπορούσαμε να μιλάμε για ώρες.",
                     movie: 1
@@ -426,6 +430,10 @@
                 {
                     text: "Κάπου με κόσμο και μουσική, αλλά να είμαστε οι δυο μας.",
                     movie: 2
+                },
+                {
+                    text: "Σε μια νυχτερινή βόλτα, οι δυο μας, χωρίς να χρειάζεται να μιλάμε.",
+                    movie: 0
                 },
                 {
                     text: "Σε ένα μέρος λίγο πιο απομονωμένο, όπου θα μπορούσαμε να χαθούμε στις σκέψεις και το συναίσθημά μας.",
@@ -436,59 +444,51 @@
 
         {
             question: "Τι σε κρατάει σε μια ταινία μέχρι το τέλος;",
-            choices: [
+            answers: [
                 {
-                    text: "Η σχέση και η σύνδεση μεταξύ των χαρακτήρων.",
-                    movie: 0
-                },
-                {
-                    text: "Η ανάγκη μου να λύσω το μυστήριο.",
-                    movie: 1
+                    text: "Η αίσθηση ότι κάθε επιλογή έχει συνέπειες και θέλω να δω πού θα καταλήξει.",
+                    movie: 3
                 },
                 {
                     text: "Οι χαρακτήρες και το πώς εξελίσσονται μέσα στην ιστορία.",
                     movie: 2
                 },
                 {
-                    text: "Η αίσθηση ότι κάθε επιλογή έχει συνέπειες και θέλω να δω πού θα καταλήξει.",
-                    movie: 3
+                    text: "Η ανάγκη μου να λύσω το μυστήριο.",
+                    movie: 1
+                },
+                {
+                    text: "Η σχέση και η σύνδεση μεταξύ των χαρακτήρων.",
+                    movie: 0
                 }
             ]
         },
 
         {
             question: "Ποιος είναι ο μεγαλύτερος σου φόβος από τα παρακάτω;",
-            choices: [
-                {
-                    text: "Να χάσω κάποιον που αγαπώ.",
-                    movie: 0
-                },
-                {
-                    text: "Να ανακαλύψω ότι κάτι που πίστευα ήταν ψέμα.",
-                    movie: 1
-                },
+            answers: [
                 {
                     text: "Να νιώθω ότι δεν ανήκω πουθενά.",
                     movie: 2
                 },
                 {
+                    text: "Να χάσω κάποιον που αγαπώ.",
+                    movie: 0
+                },
+                {
                     text: "Να αποκτήσω κάτι που θα μπορούσε να αλλάξει τα πάντα, αλλά να μην μπορώ να ελέγξω τις συνέπειές του.",
                     movie: 3
+                },
+                {
+                    text: "Να ανακαλύψω ότι κάτι που πίστευα ήταν ψέμα.",
+                    movie: 1
                 }
             ]
         },
 
         {
             question: "Αν είχες μία μεταφυσική δύναμη, ποια θα ήταν;",
-            choices: [
-                {
-                    text: "Να μπορούσα να ξαναδώ ανθρώπους που έχω χάσει.",
-                    movie: 0
-                },
-                {
-                    text: "Να μπορούσα να γνωρίζω την αλήθεια για οποιονδήποτε.",
-                    movie: 1
-                },
+            answers: [
                 {
                     text: "Να μπορούσα να καταλαβαίνω ακριβώς τι σκέφτεται και νιώθει κάποιος.",
                     movie: 2
@@ -496,28 +496,36 @@
                 {
                     text: "Να μπορούσα να ελέγχω τη ζωή μου και ό,τι συμβαίνει γύρω μου.",
                     movie: 3
+                },
+                {
+                    text: "Να μπορούσα να ξαναδώ ανθρώπους που έχω χάσει.",
+                    movie: 0
+                },
+                {
+                    text: "Να μπορούσα να γνωρίζω την αλήθεια για οποιονδήποτε.",
+                    movie: 1
                 }
             ]
         },
 
         {
             question: "Αν μπορούσες να μάθεις ΜΟΝΟ ένα πράγμα, ποιο θα ήταν;",
-            choices: [
-                {
-                    text: "Ποιον αγαπώ πραγματικά και τι σημαίνω γι' αυτόν.",
-                    movie: 0
-                },
+            answers: [
                 {
                     text: "Ποια είναι η αλήθεια πίσω από όλα όσα δεν γνωρίζω.",
                     movie: 1
+                },
+                {
+                    text: "Τι θα μπορούσα να πετύχω αν είχα απόλυτη δύναμη.",
+                    movie: 3
                 },
                 {
                     text: "Πού πραγματικά ανήκω και ποιοι άνθρωποι είναι πραγματικά δικοί μου.",
                     movie: 2
                 },
                 {
-                    text: "Τι θα μπορούσα να πετύχω αν είχα απόλυτη δύναμη.",
-                    movie: 3
+                    text: "Ποιον αγαπώ πραγματικά και τι σημαίνω γι' αυτόν.",
+                    movie: 0
                 }
             ]
         }
@@ -532,11 +540,13 @@
 
     function startQuiz() {
 
-        document.getElementById("introScreen").style.display = "none";
-        document.getElementById("quizScreen").style.display = "block";
-
         currentQuestion = 0;
+
         scores = [0, 0, 0, 0];
+
+        document.getElementById("introScreen").classList.add("hidden");
+        document.getElementById("resultScreen").classList.add("hidden");
+        document.getElementById("quizScreen").classList.remove("hidden");
 
         showQuestion();
     }
@@ -549,7 +559,7 @@
         document.getElementById("questionNumber").textContent =
             `Ερώτηση ${currentQuestion + 1} από ${questions.length}`;
 
-        document.getElementById("questionText").textContent =
+        document.getElementById("question").textContent =
             question.question;
 
         const answersContainer =
@@ -557,18 +567,15 @@
 
         answersContainer.innerHTML = "";
 
-
-        question.choices.forEach(choice => {
+        question.answers.forEach(answer => {
 
             const button = document.createElement("button");
 
-            button.className = "answer-button";
+            button.className = "answer";
 
-            button.textContent = choice.text;
+            button.textContent = answer.text;
 
-            button.onclick = function () {
-                selectAnswer(choice.movie);
-            };
+            button.onclick = () => selectAnswer(answer.movie);
 
             answersContainer.appendChild(button);
 
@@ -581,7 +588,6 @@
         scores[movieIndex]++;
 
         currentQuestion++;
-
 
         if (currentQuestion < questions.length) {
 
@@ -597,12 +603,7 @@
 
     function showResult() {
 
-        document.getElementById("quizScreen").style.display = "none";
-        document.getElementById("resultScreen").style.display = "block";
-
-
         let winningMovie = 0;
-
 
         for (let i = 1; i < scores.length; i++) {
 
@@ -612,18 +613,30 @@
 
         }
 
+        const movie = movies[winningMovie];
+
+        document.getElementById("quizScreen").classList.add("hidden");
+        document.getElementById("resultScreen").classList.remove("hidden");
 
         document.getElementById("movieTitle").textContent =
-            movies[winningMovie];
+            movie.title;
+
+        const movieImage =
+            document.getElementById("movieImage");
+
+        movieImage.src = movie.image;
+
+        movieImage.alt = movie.title;
     }
 
 
     function restartQuiz() {
 
-        document.getElementById("resultScreen").style.display = "none";
-        document.getElementById("introScreen").style.display = "block";
+        document.getElementById("resultScreen").classList.add("hidden");
+        document.getElementById("introScreen").classList.remove("hidden");
 
         currentQuestion = 0;
+
         scores = [0, 0, 0, 0];
     }
 
