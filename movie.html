@@ -1,61 +1,53 @@
+```html
 <!DOCTYPE html>
 <html lang="el">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Movie Date</title>
 
 <style>
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    background: #0f0a46;
-    color: white;
-    font-family: "Century Gothic", Arial, sans-serif;
+    min-height: 100vh;
+    background: #f3f3f3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
 }
 
-.container {
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 55px 20px 80px;
-}
-
-/* =========================================
-   TITLE
-========================================= */
-
-.movie-date-title {
-    text-align: center;
-    font-family: Arial Black, Arial, sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    margin: 0 0 40px;
-    letter-spacing: -2px;
-}
-
-/* =========================================
-   BIG IPHONE
-========================================= */
+/* =========================
+   IPHONE
+========================= */
 
 .phone {
     width: 400px;
-    max-width: 100%;
     height: 790px;
-    margin: 0 auto;
-    position: relative;
-
-    background: #050505;
-    border: 8px solid #1b1b1d;
-    border-radius: 50px;
-
+    background: #000;
+    border-radius: 48px;
+    padding: 10px;
     box-shadow:
-        0 35px 80px rgba(0, 0, 0, 0.55),
-        inset 0 0 0 1px #3b3b3d;
-
+        0 25px 70px rgba(0,0,0,0.25),
+        inset 0 0 0 1px #333;
+    position: relative;
     overflow: hidden;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f7;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Dynamic Island */
@@ -63,670 +55,598 @@ body {
 .dynamic-island {
     position: absolute;
     z-index: 20;
-    top: 10px;
+    top: 11px;
     left: 50%;
     transform: translateX(-50%);
-
-    width: 115px;
-    height: 31px;
-
+    width: 120px;
+    height: 34px;
     background: #000;
-    border-radius: 20px;
+    border-radius: 22px;
 }
 
-/* =========================================
+/* =========================
    CHAT
-========================================= */
+========================= */
 
-.instagram-chat {
-    width: 100%;
+.chat-screen {
     height: 100%;
-
     display: flex;
     flex-direction: column;
-
-    background: #000;
-
-    font-family: Arial, sans-serif;
+    background: #f2f2f7;
 }
-
-/* =========================================
-   STATUS BAR
-========================================= */
-
-.chat-status {
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 10px 23px 0;
-
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-/* =========================================
-   HEADER
-========================================= */
 
 .chat-header {
-    height: 72px;
-
+    height: 88px;
+    padding: 39px 16px 10px;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid #ddd;
     display: flex;
     align-items: center;
-
-    padding: 0 15px;
-
-    border-bottom: 1px solid #292929;
-}
-
-.back-arrow {
-    width: 32px;
-
-    font-size: 38px;
-    line-height: 1;
-
-    color: white;
-}
-
-.profile-info {
-    flex: 1;
-
-    display: flex;
-    align-items: center;
-
     gap: 10px;
 }
 
-.profile-photo {
-    width: 42px;
-    height: 42px;
+.back {
+    font-size: 27px;
+    color: #007aff;
+    line-height: 1;
+}
 
+.avatar {
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-
+    background: #222;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: #ddd8ff;
-    color: #302080;
-
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.profile-name {
-    color: white;
-    font-size: 16px;
     font-weight: 600;
+    font-size: 17px;
 }
 
-.active-now {
-    margin-top: 3px;
-
-    color: #999;
-    font-size: 11px;
-}
-
-.header-icons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    font-size: 20px;
-}
-
-/* =========================================
-   MESSAGES AREA
-========================================= */
-
-.chat-body {
+.contact-info {
     flex: 1;
-
     display: flex;
     flex-direction: column;
-
-    justify-content: flex-end;
-
-    padding: 25px 15px 15px;
-
-    gap: 12px;
-
-    overflow-y: auto;
+    justify-content: center;
 }
 
-/* =========================================
-   MESSAGE BUBBLES
-========================================= */
+.contact-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+}
 
-.chat-message {
-    max-width: 86%;
+.active {
+    font-size: 11px;
+    color: #777;
+    margin-top: 1px;
+}
 
-    padding: 13px 16px;
+.header-icon {
+    font-size: 21px;
+    color: #007aff;
+    margin-left: 4px;
+}
 
-    border-radius: 21px;
+/* =========================
+   CHAT CONTENT
+========================= */
 
-    font-size: 16px;
-    line-height: 1.45;
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 13px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
 
+.date-divider {
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+    margin: 4px 0 8px;
+}
+
+.message-row {
+    display: flex;
+    width: 100%;
+}
+
+.message-row.other {
+    justify-content: flex-start;
+}
+
+.message-row.user {
+    justify-content: flex-end;
+}
+
+.message-bubble {
+    max-width: 84%;
+    padding: 10px 14px;
+    font-size: 15px;
+    line-height: 1.38;
+    position: relative;
     word-wrap: break-word;
 }
 
-.chat-message.other {
-    align-self: flex-start;
+.message-row.other .message-bubble {
+    background: #e5e5ea;
+    color: #111;
+    border-radius: 18px 18px 18px 5px;
+}
 
-    background: #262626;
+.message-row.user .message-bubble {
+    background: #007aff;
     color: white;
-
-    border-bottom-left-radius: 7px;
+    border-radius: 18px 18px 5px 18px;
 }
 
-.chat-message.user {
-    align-self: flex-end;
-
-    background: #5d43e5;
-    color: white;
-
-    border-bottom-right-radius: 7px;
+.intro-message {
+    white-space: pre-line;
 }
 
-/* Μεγάλο αρχικό μήνυμα */
-
-.long-message {
-    max-width: 90%;
-
-    font-size: 15.5px;
-    line-height: 1.5;
-
-    padding: 15px 17px;
+.ready-text {
+    margin-top: 10px;
+    font-weight: 600;
 }
 
-/* Ready μέσα στο ίδιο μήνυμα */
+/* =========================
+   DOUBLE TAP MESSAGE
+========================= */
 
-.ready-line {
-    display: block;
-
-    margin-top: 13px;
-
-    font-size: 16px;
-}
-
-/* =========================================
-   ΠΑΤΑ ΚΑΡΔΙΑ
-========================================= */
-
-.tap-message {
+.like-message {
     cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    transition: transform 0.12s ease;
 }
 
-.tap-message:hover {
-    background: #303030;
+.like-message:active {
+    transform: scale(0.98);
 }
 
-.tap-message:active {
-    transform: scale(0.97);
-}
+.message-heart {
+    position: absolute;
+    right: -12px;
+    bottom: -13px;
 
-.tap-message.liked {
-    background: #5A0018;
-}
+    width: 31px;
+    height: 31px;
 
-.heart {
-    font-size: 19px;
-}
-
-/* =========================================
-   MESSAGE INPUT
-========================================= */
-
-.chat-footer {
-    display: flex;
-    align-items: center;
-
-    gap: 9px;
-
-    padding: 8px 15px 12px;
-}
-
-.message-box {
-    flex: 1;
-
-    height: 39px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 15px;
-
-    border: 1px solid #414141;
-    border-radius: 22px;
-
-    color: #888;
-
-    font-size: 14px;
-}
-
-.footer-icon {
-    color: white;
-    font-size: 21px;
-}
-
-/* =========================================
-   HOME INDICATOR
-========================================= */
-
-.home-indicator {
-    width: 125px;
-    height: 5px;
-
-    margin: 2px auto 8px;
-
+    border-radius: 50%;
     background: white;
+    color: #ff2d55;
 
-    border-radius: 10px;
-}
-
-/* =========================================
-   QUIZ
-========================================= */
-
-.quiz {
-    display: none;
-}
-
-.question-number {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     font-size: 17px;
 
-    margin-bottom: 15px;
+    box-shadow: 0 2px 9px rgba(0,0,0,0.18);
+
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.message-heart.show {
+    animation: heartPop 0.45s ease forwards;
+}
+
+@keyframes heartPop {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   CHAT FOOTER
+========================= */
+
+.chat-footer {
+    height: 58px;
+    background: rgba(255,255,255,0.95);
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px 9px;
+}
+
+.footer-icon {
+    font-size: 23px;
+    color: #007aff;
+}
+
+.message-input {
+    flex: 1;
+    height: 36px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 19px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* =========================
+   QUIZ
+========================= */
+
+.quiz-screen {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+    background: #111;
+    color: white;
+}
+
+.quiz-header {
+    padding: 45px 18px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quiz-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.question-number {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.quiz-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 18px 25px;
 }
 
 .question {
-    max-width: 800px;
-
-    margin: 0 auto 28px;
-
-    text-align: center;
-
-    font-size: 28px;
-    line-height: 1.4;
+    font-size: 23px;
+    line-height: 1.25;
+    font-weight: 600;
+    margin-bottom: 24px;
 }
 
 .answers {
-    display: grid;
-    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
 }
 
 .answer {
     width: 100%;
-
-    padding: 17px 18px;
-
-    border: none;
+    padding: 15px 16px;
+    border: 1px solid #444;
     border-radius: 16px;
-
-    background: white;
-    color: #17113f;
-
-    font-family: "Century Gothic", Arial, sans-serif;
-
-    font-size: 17px;
-
+    background: #1d1d1f;
+    color: white;
+    font-size: 14px;
+    line-height: 1.35;
     text-align: left;
-
     cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
+    transition: 0.18s ease;
 }
 
 .answer:hover {
-    transform: translateY(-2px);
+    background: #292929;
 }
 
-.answer:disabled {
-    cursor: default;
+.answer.selected {
+    background: white;
+    color: black;
+    border-color: white;
 }
 
-/* =========================================
+.answer.disabled {
+    pointer-events: none;
+}
+
+/* =========================
    RESULT
-========================================= */
+========================= */
 
-.result {
+.result-screen {
     display: none;
+    height: 100%;
+    flex-direction: column;
+    background: #111;
+    color: white;
+    overflow-y: auto;
+}
 
+.result-content {
+    padding: 55px 18px 30px;
     text-align: center;
 }
 
-.result h2 {
-    font-size: 38px;
-
-    margin-bottom: 25px;
+.result-label {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 8px;
 }
 
-.result img {
+.result-title {
+    font-size: 31px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.result-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 20px;
     display: block;
-
-    width: min(100%, 430px);
-
-    margin: 0 auto 25px;
-
-    border-radius: 18px;
+    margin-bottom: 20px;
 }
 
-.result p {
-    font-size: 19px;
-
-    line-height: 1.7;
-
-    margin-bottom: 30px;
+.result-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ddd;
 }
 
 .restart {
-    border: none;
-    border-radius: 14px;
-
-    padding: 14px 25px;
-
+    margin-top: 25px;
     background: white;
-    color: #17113f;
-
-    font-family: "Century Gothic", Arial, sans-serif;
-
-    font-size: 17px;
-
+    color: black;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
 }
 
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
-@media (max-width: 500px) {
-
-    .container {
-        padding: 35px 12px 60px;
-    }
-
-    .movie-date-title {
-        font-size: 48px;
+@media (max-width: 450px) {
+    body {
+        padding: 0;
+        background: #000;
     }
 
     .phone {
-        height: 760px;
-        border-radius: 43px;
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
     }
 
-    .chat-message {
-        max-width: 89%;
+    .screen {
+        border-radius: 0;
     }
 
-    .long-message {
-        font-size: 14.8px;
-    }
-
-    .question {
-        font-size: 23px;
-    }
-
-    .answer {
-        font-size: 16px;
+    .dynamic-island {
+        top: 11px;
     }
 }
 </style>
 </head>
 
-
 <body>
 
-<div class="container">
+<div class="phone">
 
-    <!-- =====================================
-         INTRO
-    ====================================== -->
+    <div class="screen">
 
-    <section id="intro">
+        <div class="dynamic-island"></div>
 
-        <h1 class="movie-date-title">
-            MOVIE DATE
-        </h1>
+        <!-- =========================
+             INTRO CHAT
+        ========================== -->
 
+        <div class="chat-screen" id="chatScreen">
 
-        <div class="phone">
+            <div class="chat-header">
 
-            <div class="dynamic-island"></div>
+                <div class="back">‹</div>
 
+                <div class="avatar">Ν</div>
 
-            <div class="instagram-chat">
-
-                <!-- STATUS BAR -->
-
-                <div class="chat-status">
-
-                    <span>9:41</span>
-
-                    <span>
-                        ● ● ▰
-                    </span>
-
+                <div class="contact-info">
+                    <div class="contact-name">Νίκη Κρητικού</div>
+                    <div class="active">Active now</div>
                 </div>
 
+                <div class="header-icon">⌕</div>
+                <div class="header-icon">☏</div>
 
-                <!-- HEADER -->
+            </div>
 
-                <div class="chat-header">
+            <div class="messages">
 
-                    <div class="back-arrow">
-                        ‹
-                    </div>
-
-
-                    <div class="profile-info">
-
-                        <div class="profile-photo">
-                            Ν
-                        </div>
-
-
-                        <div>
-
-                            <div class="profile-name">
-                                Νίκη Κρητικού
-                            </div>
-
-                            <div class="active-now">
-                                Active now
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="header-icons">
-
-                        <span>⌕</span>
-                        <span>☎</span>
-                        <span>▣</span>
-
-                    </div>
-
+                <div class="date-divider">
+                    Today
                 </div>
 
+                <!-- LONG MESSAGE -->
 
-                <!-- =================================
-                     MESSAGES
-                ================================== -->
+                <div class="message-row other">
 
-                <div class="chat-body">
+                    <div class="message-bubble intro-message">
 
+Δεν θα πρωτοτυπήσω, καθώς όπως και εσύ, είμαι άνθρωπος της συνήθειας.
+Once again σε προσκαλώ απόψε σε μια απομακρυσμένη ταινία,
+η επιλογή της οποίας θα γίνει ξανά από εσένα.
+Ομολογώ πως αυτή τη φορά δυσκολεύτηκα πάρα πολύ,
+όμως άξιζε κάθε λεπτό και κάθε σκέψη μου πάνω από αυτό.
 
-                    <!-- ΜΗΝΥΜΑ ΝΙΚΗΣ -->
-
-                    <div class="chat-message other long-message">
-
-                        Δεν θα πρωτοτυπήσω, καθώς όπως και εσύ,
-                        είμαι άνθρωπος της συνήθειας.<br><br>
-
-                        Once again σε προσκαλώ απόψε σε μια
-                        απομακρυσμένη ταινία, η επιλογή της
-                        οποίας θα γίνει ξανά από εσένα.<br><br>
-
-                        Ομολογώ πως αυτή τη φορά δυσκολεύτηκα
-                        πάρα πολύ, όμως άξιζε κάθε λεπτό και
-                        κάθε σκέψη μου πάνω από αυτό.
-
-                        <span class="ready-line">
+                        <div class="ready-text">
                             Ready?
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- USER READY -->
+
+                <div class="message-row user">
+
+                    <div class="message-bubble">
+                        Ready
+                    </div>
+
+                </div>
+
+                <!-- DOUBLE TAP MESSAGE -->
+
+                <div class="message-row other">
+
+                    <div
+                        class="message-bubble like-message"
+                        id="likeMessage"
+                    >
+                        Πάτα ♡
+
+                        <span
+                            class="message-heart"
+                            id="messageHeart"
+                        >
+                            ♥
                         </span>
 
                     </div>
 
-
-                    <!-- ΔΙΚΟ ΣΟΥ ΜΗΝΥΜΑ -->
-
-                    <div class="chat-message user">
-
-                        Ready
-
-                    </div>
-
-
-                    <!-- ΜΗΝΥΜΑ ΝΙΚΗΣ / ΚΟΥΜΠΙ -->
-
-                    <div
-                        class="chat-message other tap-message"
-                        id="likeMessage"
-                        onclick="likeAndStart()"
-                    >
-
-                        Πάτα
-                        <span class="heart">♡</span>
-
-                    </div>
-
-
                 </div>
 
+            </div>
 
-                <!-- FOOTER -->
+            <div class="chat-footer">
 
-                <div class="chat-footer">
+                <div class="footer-icon">＋</div>
 
-                    <div class="message-box">
-                        Message...
-                    </div>
-
-                    <span class="footer-icon">
-                        ♡
-                    </span>
-
-                    <span class="footer-icon">
-                        ＋
-                    </span>
-
+                <div class="message-input">
+                    Message...
                 </div>
 
-
-                <!-- HOME INDICATOR -->
-
-                <div class="home-indicator"></div>
+                <div class="footer-icon">◉</div>
+                <div class="footer-icon">☺</div>
 
             </div>
 
         </div>
 
-    </section>
+
+        <!-- =========================
+             QUIZ
+        ========================== -->
+
+        <div class="quiz-screen" id="quizScreen">
+
+            <div class="quiz-header">
+
+                <div class="quiz-title">
+                    Movie Date
+                </div>
+
+                <div
+                    class="question-number"
+                    id="questionNumber"
+                >
+                    1 / 14
+                </div>
+
+            </div>
+
+            <div class="quiz-content">
+
+                <div
+                    class="question"
+                    id="questionText"
+                ></div>
+
+                <div
+                    class="answers"
+                    id="answersContainer"
+                ></div>
+
+            </div>
+
+        </div>
 
 
-    <!-- =====================================
-         QUIZ
-    ====================================== -->
+        <!-- =========================
+             RESULT
+        ========================== -->
 
-    <section id="quiz" class="quiz">
+        <div class="result-screen" id="resultScreen">
 
-        <div
-            id="questionNumber"
-            class="question-number"
-        ></div>
+            <div class="result-content">
 
+                <div class="result-label">
+                    Your movie for tonight
+                </div>
 
-        <div
-            id="question"
-            class="question"
-        ></div>
+                <div
+                    class="result-title"
+                    id="resultTitle"
+                ></div>
 
+                <img
+                    class="result-image"
+                    id="resultImage"
+                    src=""
+                    alt=""
+                >
 
-        <div
-            id="answers"
-            class="answers"
-        ></div>
+                <div
+                    class="result-text"
+                    id="resultText"
+                ></div>
 
-    </section>
+                <button
+                    class="restart"
+                    onclick="restartQuiz()"
+                >
+                    Ξανά
+                </button>
 
+            </div>
 
-    <!-- =====================================
-         RESULT
-    ====================================== -->
+        </div>
 
-    <section id="result" class="result">
-
-        <h2 id="resultTitle"></h2>
-
-
-        <img
-            id="resultImage"
-            src=""
-            alt=""
-        >
-
-
-        <p id="resultText"></p>
-
-
-        <button
-            class="restart"
-            onclick="restartQuiz()"
-        >
-            Ξανά από την αρχή
-        </button>
-
-    </section>
-
-
-    <!-- GOOGLE SHEET -->
-
-    <iframe
-        name="google-sheet-frame"
-        style="display:none"
-    ></iframe>
+    </div>
 
 </div>
 
 
-
 <script>
 
-/* =========================================
-   GOOGLE APPS SCRIPT
-========================================= */
-
-const scriptURL =
-"https://script.google.com/macros/s/AKfycbxLQUUDEjkTAGGkVBeWoEWS8vLHIr1Vn389VmGta-eZjhK9HsIhyGuot9V-Qx1eGEEWPw/exec";
-
-
-/* =========================================
+/* =====================================================
    MOVIES
-========================================= */
+===================================================== */
 
 const movies = {
 
@@ -761,326 +681,326 @@ const movies = {
 };
 
 
-/* =========================================
+/* =====================================================
    QUESTIONS
-========================================= */
+===================================================== */
 
 const questions = [
 
-    [
-        "Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?",
-        [
-            [
-                "Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.",
-                "wolfman"
-            ],
-            [
-                "Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.",
-                "timeCut"
-            ],
-            [
-                "Μια άδεια πόλη.",
-                "silence"
-            ],
-            [
-                "Ένα παλιό κτίριο με ιστορία.",
-                "rite"
-            ]
+    {
+        question: "Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?",
+        answers: [
+            {
+                text: "Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.",
+                movie: "wolfman"
+            },
+            {
+                text: "Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.",
+                movie: "timeCut"
+            },
+            {
+                text: "Μια άδεια πόλη.",
+                movie: "silence"
+            },
+            {
+                text: "Ένα παλιό κτίριο με ιστορία.",
+                movie: "rite"
+            }
         ]
-    ],
+    },
 
-    [
-        "Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?",
-        [
-            [
-                "Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.",
-                "timeCut"
-            ],
-            [
-                "Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.",
-                "rite"
-            ],
-            [
-                "Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.",
-                "silence"
-            ],
-            [
-                "Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.",
-                "wolfman"
-            ]
+    {
+        question: "Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?",
+        answers: [
+            {
+                text: "Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.",
+                movie: "timeCut"
+            },
+            {
+                text: "Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.",
+                movie: "rite"
+            },
+            {
+                text: "Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.",
+                movie: "silence"
+            },
+            {
+                text: "Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.",
+                movie: "wolfman"
+            }
         ]
-    ],
+    },
 
-    [
-        "Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?",
-        [
-            [
-                "Ένα ρολόι.",
-                "timeCut"
-            ],
-            [
-                "Ένα παλιό κειμήλιο.",
-                "rite"
-            ],
-            [
-                "Ένα ζευγάρι ακουστικά.",
-                "silence"
-            ],
-            [
-                "Ένα φυλαχτό.",
-                "wolfman"
-            ]
+    {
+        question: "Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?",
+        answers: [
+            {
+                text: "Ένα ρολόι.",
+                movie: "timeCut"
+            },
+            {
+                text: "Ένα παλιό κειμήλιο.",
+                movie: "rite"
+            },
+            {
+                text: "Ένα ζευγάρι ακουστικά.",
+                movie: "silence"
+            },
+            {
+                text: "Ένα φυλαχτό.",
+                movie: "wolfman"
+            }
         ]
-    ],
+    },
 
-    [
-        "Θα ήθελες να ξέρεις τι θα συμβεί αύριο?",
-        [
-            [
-                "Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.",
-                "silence"
-            ],
-            [
-                "Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.",
-                "timeCut"
-            ],
-            [
-                "Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.",
-                "wolfman"
-            ],
-            [
-                "Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.",
-                "rite"
-            ]
+    {
+        question: "Θα ήθελες να ξέρεις τι θα συμβεί αύριο?",
+        answers: [
+            {
+                text: "Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.",
+                movie: "silence"
+            },
+            {
+                text: "Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.",
+                movie: "timeCut"
+            },
+            {
+                text: "Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.",
+                movie: "wolfman"
+            },
+            {
+                text: "Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.",
+                movie: "rite"
+            }
         ]
-    ],
+    },
 
-    [
-        "Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?",
-        [
-            [
-                "«Ποιος το άφησε εδώ;»",
-                "rite"
-            ],
-            [
-                "«Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»",
-                "timeCut"
-            ],
-            [
-                "«Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»",
-                "wolfman"
-            ],
-            [
-                "«Καλύτερα να μην ασχοληθώ καν.»",
-                "silence"
-            ]
+    {
+        question: "Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?",
+        answers: [
+            {
+                text: "«Ποιος το άφησε εδώ;»",
+                movie: "rite"
+            },
+            {
+                text: "«Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»",
+                movie: "timeCut"
+            },
+            {
+                text: "«Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»",
+                movie: "wolfman"
+            },
+            {
+                text: "«Καλύτερα να μην ασχοληθώ καν.»",
+                movie: "silence"
+            }
         ]
-    ],
+    },
 
-    [
-        "Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?",
-        [
-            [
-                "Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.",
-                "timeCut"
-            ],
-            [
-                "Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.",
-                "silence"
-            ],
-            [
-                "Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.",
-                "wolfman"
-            ],
-            [
-                "Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.",
-                "rite"
-            ]
+    {
+        question: "Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?",
+        answers: [
+            {
+                text: "Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.",
+                movie: "timeCut"
+            },
+            {
+                text: "Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.",
+                movie: "silence"
+            },
+            {
+                text: "Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.",
+                movie: "wolfman"
+            },
+            {
+                text: "Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.",
+                movie: "rite"
+            }
         ]
-    ],
+    },
 
-    [
-        "Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?",
-        [
-            [
-                "Προσπαθώ να ανακαλύψω ποιος είναι.",
-                "rite"
-            ],
-            [
-                "Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.",
-                "timeCut"
-            ],
-            [
-                "Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.",
-                "wolfman"
-            ],
-            [
-                "Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.",
-                "silence"
-            ]
+    {
+        question: "Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?",
+        answers: [
+            {
+                text: "Προσπαθώ να ανακαλύψω ποιος είναι.",
+                movie: "rite"
+            },
+            {
+                text: "Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.",
+                movie: "timeCut"
+            },
+            {
+                text: "Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.",
+                movie: "wolfman"
+            },
+            {
+                text: "Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.",
+                movie: "silence"
+            }
         ]
-    ],
+    },
 
-    [
-        "Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?",
-        [
-            [
-                "Μαύρη πόρτα με κόκκινο φως.",
-                "wolfman"
-            ],
-            [
-                "Καφέ πόρτα με πράσινο φως.",
-                "silence"
-            ],
-            [
-                "Γκρι πόρτα με λευκό φως.",
-                "rite"
-            ],
-            [
-                "Λευκή πόρτα με μωβ φως.",
-                "timeCut"
-            ]
+    {
+        question: "Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?",
+        answers: [
+            {
+                text: "Μαύρη πόρτα με κόκκινο φως.",
+                movie: "wolfman"
+            },
+            {
+                text: "Καφέ πόρτα με πράσινο φως.",
+                movie: "silence"
+            },
+            {
+                text: "Γκρι πόρτα με λευκό φως.",
+                movie: "rite"
+            },
+            {
+                text: "Λευκή πόρτα με μωβ φως.",
+                movie: "timeCut"
+            }
         ]
-    ],
+    },
 
-    [
-        "Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?",
-        [
-            [
-                "Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.",
-                "silence"
-            ],
-            [
-                "Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.",
-                "rite"
-            ],
-            [
-                "Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.",
-                "timeCut"
-            ],
-            [
-                "Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.",
-                "wolfman"
-            ]
+    {
+        question: "Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?",
+        answers: [
+            {
+                text: "Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.",
+                movie: "silence"
+            },
+            {
+                text: "Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.",
+                movie: "rite"
+            },
+            {
+                text: "Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.",
+                movie: "timeCut"
+            },
+            {
+                text: "Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.",
+                movie: "wolfman"
+            }
         ]
-    ],
+    },
 
-    [
-        "Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?",
-        [
-            [
-                "Θέλω να το δω με τα μάτια μου.",
-                "timeCut"
-            ],
-            [
-                "Τον πιστεύω, αλλά είμαι επιφυλακτικός.",
-                "rite"
-            ],
-            [
-                "Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.",
-                "wolfman"
-            ],
-            [
-                "Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.",
-                "silence"
-            ]
+    {
+        question: "Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?",
+        answers: [
+            {
+                text: "Θέλω να το δω με τα μάτια μου.",
+                movie: "timeCut"
+            },
+            {
+                text: "Τον πιστεύω, αλλά είμαι επιφυλακτικός.",
+                movie: "rite"
+            },
+            {
+                text: "Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.",
+                movie: "wolfman"
+            },
+            {
+                text: "Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.",
+                movie: "silence"
+            }
         ]
-    ],
+    },
 
-    [
-        "Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?",
-        [
-            [
-                "Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.",
-                "silence"
-            ],
-            [
-                "Κάτι που μου θυμίζει ποιος είμαι.",
-                "wolfman"
-            ],
-            [
-                "Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.",
-                "rite"
-            ],
-            [
-                "Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.",
-                "timeCut"
-            ]
+    {
+        question: "Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?",
+        answers: [
+            {
+                text: "Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.",
+                movie: "silence"
+            },
+            {
+                text: "Κάτι που μου θυμίζει ποιος είμαι.",
+                movie: "wolfman"
+            },
+            {
+                text: "Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.",
+                movie: "rite"
+            },
+            {
+                text: "Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.",
+                movie: "timeCut"
+            }
         ]
-    ],
+    },
 
-    [
-        "Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?",
-        [
-            [
-                "Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.",
-                "rite"
-            ],
-            [
-                "Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.",
-                "timeCut"
-            ],
-            [
-                "Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.",
-                "wolfman"
-            ],
-            [
-                "Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.",
-                "silence"
-            ]
+    {
+        question: "Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?",
+        answers: [
+            {
+                text: "Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.",
+                movie: "rite"
+            },
+            {
+                text: "Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.",
+                movie: "timeCut"
+            },
+            {
+                text: "Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.",
+                movie: "wolfman"
+            },
+            {
+                text: "Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.",
+                movie: "silence"
+            }
         ]
-    ],
+    },
 
-    [
-        "Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?",
-        [
-            [
-                "Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.",
-                "rite"
-            ],
-            [
-                "Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.",
-                "timeCut"
-            ],
-            [
-                "Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.",
-                "silence"
-            ],
-            [
-                "Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.",
-                "wolfman"
-            ]
+    {
+        question: "Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?",
+        answers: [
+            {
+                text: "Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.",
+                movie: "rite"
+            },
+            {
+                text: "Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.",
+                movie: "timeCut"
+            },
+            {
+                text: "Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.",
+                movie: "silence"
+            },
+            {
+                text: "Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.",
+                movie: "wolfman"
+            }
         ]
-    ],
+    },
 
-    [
-        "Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?",
-        [
-            [
-                "Να μη βλέπεις.",
-                "wolfman"
-            ],
-            [
-                "Να μην ακούς.",
-                "rite"
-            ],
-            [
-                "Να μην μιλάς.",
-                "silence"
-            ],
-            [
-                "Να μην θυμάσαι.",
-                "timeCut"
-            ]
+    {
+        question: "Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?",
+        answers: [
+            {
+                text: "Να μη βλέπεις.",
+                movie: "wolfman"
+            },
+            {
+                text: "Να μην ακούς.",
+                movie: "rite"
+            },
+            {
+                text: "Να μην μιλάς.",
+                movie: "silence"
+            },
+            {
+                text: "Να μην θυμάσαι.",
+                movie: "timeCut"
+            }
         ]
-    ]
+    }
 
 ];
 
 
-/* =========================================
-   QUIZ VARIABLES
-========================================= */
+/* =====================================================
+   QUIZ STATE
+===================================================== */
 
 let currentQuestion = 0;
 
@@ -1093,29 +1013,44 @@ let scores = {
 
 let selectedAnswers = [];
 
-
-/* =========================================
-   LIKE + START
-========================================= */
-
-function likeAndStart() {
-
-    const message =
-        document.getElementById("likeMessage");
-
-    message.innerHTML = "Πάτα <span class='heart'>♥</span>";
-
-    message.classList.add("liked");
-
-    setTimeout(function() {
-        startQuiz();
-    }, 350);
-}
+let quizStarted = false;
 
 
-/* =========================================
+/* =====================================================
+   DOUBLE TAP
+===================================================== */
+
+const likeMessage = document.getElementById("likeMessage");
+const messageHeart = document.getElementById("messageHeart");
+
+let lastTap = 0;
+
+likeMessage.addEventListener("click", function () {
+
+    const now = Date.now();
+
+    if (now - lastTap < 350) {
+
+        if (quizStarted) {
+            return;
+        }
+
+        quizStarted = true;
+
+        messageHeart.classList.add("show");
+
+        setTimeout(function () {
+            startQuiz();
+        }, 550);
+    }
+
+    lastTap = now;
+});
+
+
+/* =====================================================
    START QUIZ
-========================================= */
+===================================================== */
 
 function startQuiz() {
 
@@ -1130,94 +1065,92 @@ function startQuiz() {
 
     selectedAnswers = [];
 
-    document.getElementById("intro").style.display =
-        "none";
+    document.getElementById("chatScreen").style.display = "none";
 
-    document.getElementById("result").style.display =
-        "none";
+    document.getElementById("resultScreen").style.display = "none";
 
-    document.getElementById("quiz").style.display =
-        "block";
+    document.getElementById("quizScreen").style.display = "flex";
 
     showQuestion();
 }
 
 
-/* =========================================
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+function shuffle(array) {
+
+    const arr = [...array];
+
+    for (let i = arr.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
+}
+
+
+/* =====================================================
    SHOW QUESTION
-========================================= */
+===================================================== */
 
 function showQuestion() {
 
-    const questionData =
-        questions[currentQuestion];
+    const question = questions[currentQuestion];
 
     document.getElementById("questionNumber").textContent =
-        `Ερώτηση ${currentQuestion + 1} / ${questions.length}`;
+        `${currentQuestion + 1} / ${questions.length}`;
 
-    document.getElementById("question").textContent =
-        questionData[0];
+    document.getElementById("questionText").textContent =
+        question.question;
 
+    const container =
+        document.getElementById("answersContainer");
 
-    const answersContainer =
-        document.getElementById("answers");
+    container.innerHTML = "";
 
-    answersContainer.innerHTML = "";
+    const shuffledAnswers = shuffle(question.answers);
 
+    shuffledAnswers.forEach(function (answer) {
 
-    const shuffledAnswers =
-        [...questionData[1]]
-        .sort(() => Math.random() - 0.5);
-
-
-    shuffledAnswers.forEach(function(answerData) {
-
-        const answerText =
-            answerData[0];
-
-        const movie =
-            answerData[1];
-
-
-        const button =
-            document.createElement("button");
+        const button = document.createElement("button");
 
         button.className = "answer";
 
-        button.textContent =
-            answerText;
+        button.textContent = answer.text;
 
+        button.addEventListener("click", function () {
 
-        button.onclick = function() {
+            if (button.classList.contains("disabled")) {
+                return;
+            }
 
-            document
-                .querySelectorAll(".answer")
-                .forEach(function(btn) {
-                    btn.disabled = true;
-                });
+            const allButtons =
+                container.querySelectorAll(".answer");
 
+            allButtons.forEach(function (btn) {
+                btn.classList.add("disabled");
+            });
 
-            button.style.background =
-                "#5d43e5";
+            button.classList.add("selected");
 
-            button.style.color =
-                "#ffffff";
+            scores[answer.movie]++;
 
+            selectedAnswers.push({
+                question: question.question,
+                answer: answer.text,
+                movie: answer.movie
+            });
 
-            scores[movie]++;
-
-            selectedAnswers.push(answerText);
-
-
-            setTimeout(function() {
+            setTimeout(function () {
 
                 currentQuestion++;
 
-
-                if (
-                    currentQuestion <
-                    questions.length
-                ) {
+                if (currentQuestion < questions.length) {
 
                     showQuestion();
 
@@ -1229,191 +1162,139 @@ function showQuestion() {
 
             }, 550);
 
-        };
+        });
 
-
-        answersContainer.appendChild(button);
+        container.appendChild(button);
 
     });
 }
 
 
-/* =========================================
+/* =====================================================
    SHOW RESULT
-========================================= */
+===================================================== */
 
 function showResult() {
 
-    document.getElementById("quiz").style.display =
-        "none";
-
-    document.getElementById("result").style.display =
-        "block";
-
-
     let winner = "wolfman";
 
-    let maxScore =
-        scores.wolfman;
+    let highestScore = scores.wolfman;
 
+    if (scores.timeCut > highestScore) {
 
-    ["timeCut", "silence", "rite"]
-        .forEach(function(movie) {
+        winner = "timeCut";
+        highestScore = scores.timeCut;
 
-            if (scores[movie] > maxScore) {
+    }
 
-                maxScore =
-                    scores[movie];
+    if (scores.silence > highestScore) {
 
-                winner =
-                    movie;
-            }
+        winner = "silence";
+        highestScore = scores.silence;
 
-        });
+    }
 
+    if (scores.rite > highestScore) {
 
-    const movie =
-        movies[winner];
+        winner = "rite";
+        highestScore = scores.rite;
 
+    }
+
+    const result = movies[winner];
+
+    document.getElementById("quizScreen").style.display = "none";
+
+    document.getElementById("resultScreen").style.display = "flex";
 
     document.getElementById("resultTitle").textContent =
-        movie.title;
-
+        result.title;
 
     document.getElementById("resultImage").src =
-        movie.image;
-
+        result.image;
 
     document.getElementById("resultText").textContent =
-        movie.text;
+        result.text;
 
-
-    sendResultToGoogleSheet(
-        movie.title
-    );
+    sendResultToGoogleSheet(result);
 }
 
 
-/* =========================================
-   GOOGLE SHEET
-========================================= */
+/* =====================================================
+   GOOGLE SHEETS
+===================================================== */
 
 function sendResultToGoogleSheet(result) {
 
-    try {
+    const googleScriptURL =
+        "https://script.google.com/macros/s/AKfycbxLQUUDEjkTAGGkVBeWoEWS8vLHIr1Vn389VmGta-eZjhK9HsIhyGuot9V-Qx1eGEEWPw/exec";
 
-        const form =
-            document.createElement("form");
+    const iframe =
+        document.createElement("iframe");
 
+    iframe.name = "hidden_iframe";
 
-        form.method =
-            "POST";
+    iframe.style.display = "none";
 
+    document.body.appendChild(iframe);
 
-        form.action =
-            scriptURL;
+    const form =
+        document.createElement("form");
 
+    form.method = "POST";
 
-        form.target =
-            "google-sheet-frame";
+    form.action = googleScriptURL;
 
+    form.target = "hidden_iframe";
 
-        const answersInput =
-            document.createElement("input");
+    const answersInput =
+        document.createElement("input");
 
+    answersInput.type = "hidden";
 
-        answersInput.type =
-            "hidden";
+    answersInput.name = "answers";
 
+    answersInput.value =
+        JSON.stringify(selectedAnswers);
 
-        answersInput.name =
-            "answers";
+    const resultInput =
+        document.createElement("input");
 
+    resultInput.type = "hidden";
 
-        answersInput.value =
-            JSON.stringify(
-                selectedAnswers
-            );
+    resultInput.name = "result";
 
+    resultInput.value =
+        result.title;
 
-        const resultInput =
-            document.createElement("input");
+    form.appendChild(answersInput);
 
+    form.appendChild(resultInput);
 
-        resultInput.type =
-            "hidden";
+    document.body.appendChild(form);
 
+    form.submit();
 
-        resultInput.name =
-            "result";
-
-
-        resultInput.value =
-            result;
-
-
-        form.appendChild(
-            answersInput
-        );
-
-
-        form.appendChild(
-            resultInput
-        );
-
-
-        document.body.appendChild(
-            form
-        );
-
-
-        form.submit();
-
+    setTimeout(function () {
 
         form.remove();
+        iframe.remove();
 
-    } catch (error) {
-
-        console.log(
-            "Google Sheet error:",
-            error
-        );
-
-    }
+    }, 2000);
 }
 
 
-/* =========================================
+/* =====================================================
    RESTART
-========================================= */
+===================================================== */
 
 function restartQuiz() {
 
-    document.getElementById("result").style.display =
-        "none";
+    quizStarted = false;
 
-    document.getElementById("quiz").style.display =
-        "none";
-
-    document.getElementById("intro").style.display =
-        "block";
-
-
-    const message =
-        document.getElementById("likeMessage");
-
-
-    message.innerHTML =
-        "Πάτα <span class='heart'>♡</span>";
-
-
-    message.classList.remove(
-        "liked"
-    );
-
+    messageHeart.classList.remove("show");
 
     currentQuestion = 0;
-
 
     scores = {
         wolfman: 0,
@@ -1422,11 +1303,17 @@ function restartQuiz() {
         rite: 0
     };
 
-
     selectedAnswers = [];
+
+    document.getElementById("resultScreen").style.display = "none";
+
+    document.getElementById("quizScreen").style.display = "none";
+
+    document.getElementById("chatScreen").style.display = "flex";
 }
 
 </script>
 
 </body>
 </html>
+```
