@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Quiz</title>
+
+    <title>Movie Date</title>
 
     <style>
         * {
@@ -12,7 +14,6 @@
 
         body {
             margin: 0;
-            min-height: 100vh;
             background: #0f0a46;
             color: white;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -23,12 +24,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 720px;
+            max-width: 800px;
             text-align: center;
         }
 
@@ -36,191 +37,135 @@
            INTRO
         ========================= */
 
-        #intro-screen {
-            display: flex;
+        .movie-date-title {
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: 2px;
+            margin: 0 0 35px 0;
+            color: white;
         }
 
         .intro-text {
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 20px;
+            line-height: 1.7;
             margin-bottom: 35px;
         }
 
-        .intro-text p {
-            margin: 0 0 18px;
-        }
-
         /* =========================
-           PHONE / CHAT
+           CHAT / PHONE
         ========================= */
 
         .phone {
-            width: 290px;
-            height: 540px;
-            margin: 25px auto 0;
-            border: 7px solid #171717;
-            border-radius: 38px;
-            background: #f2f2f7;
-            overflow: hidden;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-            position: relative;
-            color: #111;
+            width: 320px;
+            max-width: 90%;
+            margin: 30px auto 0;
+            padding: 18px 14px;
+            border: 3px solid white;
+            border-radius: 30px;
+            background: #111111;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
         }
 
-        .phone::before {
-            content: "";
-            position: absolute;
-            top: 7px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 20px;
-            background: #171717;
-            border-radius: 0 0 15px 15px;
-            z-index: 3;
-        }
-
-        .chat-header {
-            height: 72px;
-            background: #ffffff;
-            border-bottom: 1px solid #d5d5d5;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 12px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            font-size: 14px;
+        .phone-header {
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            margin-bottom: 20px;
         }
 
         .chat {
-            height: calc(100% - 72px);
-            padding: 22px 15px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            gap: 14px;
-            background: #f2f2f7;
+            gap: 12px;
         }
 
         .message {
-            max-width: 76%;
-            padding: 10px 15px;
-            border-radius: 19px;
-            font-family: Arial, Helvetica, sans-serif;
+            max-width: 75%;
+            padding: 11px 15px;
+            border-radius: 18px;
             font-size: 15px;
-            line-height: 1.25;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+            line-height: 1.4;
         }
 
-        /* Το Ready είναι δικό σου */
+        .message.received {
+            align-self: flex-start;
+            background: #2c2c2c;
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
         .message.sent {
             align-self: flex-end;
-            background: #007aff;
+            background: #4a4a4a;
             color: white;
             border-bottom-right-radius: 5px;
         }
 
-        /* Το Πάτα είναι του άλλου */
-        .message.received {
-            align-self: flex-start;
-            background: #e5e5ea;
-            color: #111;
-            border-bottom-left-radius: 5px;
-        }
-
-        .ready-message {
-            margin-top: 45px;
-        }
-
         .tap-message {
             cursor: pointer;
+            transition: all 0.25s ease;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            transition:
-                transform 0.15s ease,
-                background 0.2s ease;
         }
 
         .tap-message:hover {
-            transform: scale(1.04);
-        }
-
-        .tap-message:active {
-            transform: scale(0.96);
+            transform: scale(1.03);
         }
 
         .tap-message.liked {
-            background: #800020;
+            background: #5A0018 !important;
             color: white;
             transform: scale(1.05);
-        }
-
-        .heart-pop {
-            display: inline-block;
-            margin-left: 4px;
-            font-size: 16px;
         }
 
         /* =========================
            QUIZ
         ========================= */
 
-        #quiz-screen {
-            display: none;
-        }
-
         .question-number {
-            font-size: 15px;
-            opacity: 0.75;
-            margin-bottom: 22px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
         }
 
         .question {
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
-            font-size: 23px;
-            line-height: 1.45;
+            font-size: 30px;
             font-weight: 900;
-            margin-bottom: 32px;
+            line-height: 1.35;
+            margin-bottom: 35px;
         }
 
         .answers {
             display: flex;
             flex-direction: column;
-            gap: 13px;
+            gap: 14px;
         }
 
         .answer-button {
             width: 100%;
+            padding: 17px 20px;
             border: 2px solid white;
+            border-radius: 12px;
             background: transparent;
             color: white;
-            border-radius: 12px;
-            padding: 15px 18px;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-            font-size: 16px;
+            font-size: 17px;
             line-height: 1.4;
             cursor: pointer;
-            transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                border-color 0.2s ease,
-                transform 0.12s ease;
+            transition: all 0.2s ease;
         }
 
-        .answer-button:hover {
+        .answer-button:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .answer-button:active {
-            transform: scale(0.98);
-        }
-
-        /* ΕΠΙΛΕΓΜΕΝΗ ΑΠΑΝΤΗΣΗ - ΜΠΟΡΝΤΟ */
+        /* ΣΚΟΥΡΟ ΜΠΟΡΝΤΟ */
         .answer-button.selected {
-            background: #800020;
-            color: white;
-            border-color: #800020;
+            background-color: #5A0018 !important;
+            border-color: #5A0018 !important;
+            color: white !important;
         }
 
         .answer-button:disabled {
@@ -228,52 +173,51 @@
         }
 
         /* =========================
-           RESULT
+           RESULTS
         ========================= */
-
-        #result-screen {
-            display: none;
-        }
 
         .result-title {
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
-            font-size: 32px;
-            line-height: 1.2;
+            font-size: 42px;
             font-weight: 900;
             margin-bottom: 25px;
         }
 
         .result-image {
             width: 100%;
-            max-width: 430px;
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
             display: block;
-            margin: 0 auto 28px;
-            border-radius: 12px;
+            margin: 0 auto 30px;
         }
 
         .result-text {
-            font-size: 18px;
-            line-height: 1.8;
-            margin: 0 auto 35px;
-            max-width: 600px;
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 35px;
         }
 
         .restart-button {
+            padding: 14px 30px;
             border: 2px solid white;
-            background: white;
-            color: #0f0a46;
-            border-radius: 12px;
-            padding: 13px 28px;
+            border-radius: 10px;
+            background: transparent;
+            color: white;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 17px;
             cursor: pointer;
-            transition: 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .restart-button:hover {
-            background: transparent;
-            color: white;
+            background: white;
+            color: #0f0a46;
+        }
+
+        .hidden {
+            display: none;
         }
 
         /* =========================
@@ -283,45 +227,39 @@
         @media (max-width: 600px) {
 
             .screen {
-                padding: 30px 16px;
+                padding: 25px 15px;
+            }
+
+            .movie-date-title {
+                font-size: 42px;
+                letter-spacing: 1px;
+                margin-bottom: 28px;
             }
 
             .intro-text {
-                font-size: 16px;
-                line-height: 1.7;
+                font-size: 17px;
+                line-height: 1.65;
             }
 
             .phone {
-                width: 260px;
-                height: 490px;
+                width: 290px;
             }
 
             .question {
-                font-size: 20px;
+                font-size: 24px;
             }
 
             .answer-button {
-                font-size: 15px;
-                padding: 14px 15px;
+                font-size: 16px;
+                padding: 15px 16px;
             }
 
             .result-title {
-                font-size: 27px;
+                font-size: 32px;
             }
 
             .result-text {
-                font-size: 16px;
-                line-height: 1.7;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                transition: none !important;
-                animation: none !important;
+                font-size: 18px;
             }
         }
     </style>
@@ -333,62 +271,47 @@
          INTRO SCREEN
     ========================= -->
 
-    <section id="intro-screen" class="screen">
-
+    <section id="introScreen" class="screen">
         <div class="container">
 
+            <h1 class="movie-date-title">MOVIE DATE</h1>
+
             <div class="intro-text">
+                Δεν θα πρωτοτυπήσω, καθώς όπως και εσύ, είμαι άνθρωπος της συνήθειας.
+                <br><br>
 
-                <p>
-                    Δεν θα πρωτοτυπήσω, καθώς όπως και εσύ,
-                    είμαι άνθρωπος της συνήθειας.
-                </p>
+                Once again σε προσκαλώ απόψε σε μια απομακρυσμένη ταινία, η επιλογή της οποίας θα γίνει ξανά από εσένα.
+                <br><br>
 
-                <p>
-                    Once again σε προσκαλώ απόψε σε μια απομακρυσμένη ταινία,
-                    η επιλογή της οποίας θα γίνει ξανά από εσένα.
-                </p>
+                Ομολογώ πως αυτή τη φορά δυσκολεύτηκα πάρα πολύ, όμως άξιζε κάθε λεπτό και κάθε σκέψη μου πάνω από αυτό.
+                <br><br>
 
-                <p>
-                    Ομολογώ πως αυτή τη φορά δυσκολεύτηκα πάρα πολύ,
-                    όμως άξιζε κάθε λεπτό και κάθε σκέψη μου πάνω από αυτό.
-                </p>
-
-                <p>
-                    Ready?
-                </p>
-
+                Ready?
             </div>
 
             <div class="phone">
-
-                <div class="chat-header">
-                    Messages
+                <div class="phone-header">
+                    Movie Date
                 </div>
 
                 <div class="chat">
 
-                    <!-- ΕΣΥ ΕΣΤΕΙΛΕΣ READY -->
-                    <div class="message sent ready-message">
+                    <div class="message sent">
                         Ready
                     </div>
 
-                    <!-- Ο ΑΛΛΟΣ ΣΤΕΛΝΕΙ ΠΑΤΑ -->
-                    <button
-                        type="button"
-                        id="tap-message"
+                    <div
                         class="message received tap-message"
-                        aria-label="Πάτα για να ξεκινήσει το παιχνίδι"
+                        id="tapMessage"
+                        onclick="startQuiz()"
                     >
-                        Πάτα <span class="heart-pop">♡</span>
-                    </button>
+                        Πάτα ♡
+                    </div>
 
                 </div>
-
             </div>
 
         </div>
-
     </section>
 
 
@@ -396,18 +319,16 @@
          QUIZ SCREEN
     ========================= -->
 
-    <section id="quiz-screen" class="screen">
-
+    <section id="quizScreen" class="screen hidden">
         <div class="container">
 
-            <div id="question-number" class="question-number"></div>
+            <div id="questionNumber" class="question-number"></div>
 
             <div id="question" class="question"></div>
 
             <div id="answers" class="answers"></div>
 
         </div>
-
     </section>
 
 
@@ -415,31 +336,28 @@
          RESULT SCREEN
     ========================= -->
 
-    <section id="result-screen" class="screen">
-
+    <section id="resultScreen" class="screen hidden">
         <div class="container">
 
-            <div id="result-title" class="result-title"></div>
+            <div id="resultTitle" class="result-title"></div>
 
             <img
-                id="result-image"
+                id="resultImage"
                 class="result-image"
                 src=""
-                alt=""
+                alt="Movie"
             >
 
-            <p id="result-text" class="result-text"></p>
+            <div id="resultText" class="result-text"></div>
 
             <button
-                type="button"
-                id="restart-button"
                 class="restart-button"
+                onclick="restartQuiz()"
             >
                 Ξανά
             </button>
 
         </div>
-
     </section>
 
 
@@ -804,11 +722,10 @@
 
 
         /* =========================
-           STATE
+           QUIZ VARIABLES
         ========================= */
 
         let currentQuestion = 0;
-
         let scores = {
             wolfman: 0,
             timeCut: 0,
@@ -818,62 +735,23 @@
 
 
         /* =========================
-           ELEMENTS
+           START QUIZ
         ========================= */
 
-        const introScreen =
-            document.getElementById("intro-screen");
+        function startQuiz() {
 
-        const quizScreen =
-            document.getElementById("quiz-screen");
-
-        const resultScreen =
-            document.getElementById("result-screen");
-
-        const tapMessage =
-            document.getElementById("tap-message");
-
-        const questionNumber =
-            document.getElementById("question-number");
-
-        const questionElement =
-            document.getElementById("question");
-
-        const answersElement =
-            document.getElementById("answers");
-
-        const resultTitle =
-            document.getElementById("result-title");
-
-        const resultImage =
-            document.getElementById("result-image");
-
-        const resultText =
-            document.getElementById("result-text");
-
-        const restartButton =
-            document.getElementById("restart-button");
-
-
-        /* =========================
-           START GAME
-        ========================= */
-
-        tapMessage.addEventListener("click", () => {
+            const tapMessage = document.getElementById("tapMessage");
 
             tapMessage.classList.add("liked");
-
-            const heart =
-                tapMessage.querySelector(".heart-pop");
-
-            if (heart) {
-                heart.textContent = "♥";
-            }
+            tapMessage.innerHTML = "♥";
 
             setTimeout(() => {
 
-                introScreen.style.display = "none";
-                quizScreen.style.display = "flex";
+                document.getElementById("introScreen")
+                    .classList.add("hidden");
+
+                document.getElementById("quizScreen")
+                    .classList.remove("hidden");
 
                 currentQuestion = 0;
 
@@ -886,14 +764,8 @@
 
                 showQuestion();
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
             }, 350);
-
-        });
+        }
 
 
         /* =========================
@@ -902,43 +774,42 @@
 
         function showQuestion() {
 
-            const current =
-                questions[currentQuestion];
+            const question = questions[currentQuestion];
 
-            questionNumber.textContent =
-                `${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById("questionNumber").textContent =
+                `Ερώτηση ${currentQuestion + 1} / ${questions.length}`;
 
-            questionElement.textContent =
-                current.question;
+            document.getElementById("question").textContent =
+                question.question;
 
-            answersElement.innerHTML = "";
+            const answersContainer =
+                document.getElementById("answers");
 
+            answersContainer.innerHTML = "";
 
             const shuffledAnswers =
-                [...current.answers]
-                    .sort(() => Math.random() - 0.5);
-
+                [...question.answers].sort(
+                    () => Math.random() - 0.5
+                );
 
             shuffledAnswers.forEach(answer => {
 
                 const button =
                     document.createElement("button");
 
-                button.type = "button";
-
-                button.className =
-                    "answer-button";
-
-                button.textContent =
-                    answer.text;
-
+                button.className = "answer-button";
+                button.textContent = answer.text;
 
                 button.addEventListener("click", () => {
+
+                    if (button.disabled) {
+                        return;
+                    }
 
                     button.classList.add("selected");
 
                     const allButtons =
-                        answersElement.querySelectorAll(
+                        answersContainer.querySelectorAll(
                             ".answer-button"
                         );
 
@@ -946,41 +817,25 @@
                         btn.disabled = true;
                     });
 
-
                     scores[answer.movie]++;
-
 
                     setTimeout(() => {
 
                         currentQuestion++;
 
-                        if (
-                            currentQuestion <
-                            questions.length
-                        ) {
-
+                        if (currentQuestion < questions.length) {
                             showQuestion();
-
                         } else {
-
                             showResult();
-
                         }
-
-                        window.scrollTo({
-                            top: 0,
-                            behavior: "smooth"
-                        });
 
                     }, 550);
 
                 });
 
-
-                answersElement.appendChild(button);
+                answersContainer.appendChild(button);
 
             });
-
         }
 
 
@@ -990,51 +845,36 @@
 
         function showResult() {
 
-            quizScreen.style.display = "none";
-            resultScreen.style.display = "flex";
+            document.getElementById("quizScreen")
+                .classList.add("hidden");
 
+            document.getElementById("resultScreen")
+                .classList.remove("hidden");
 
-            let winner = "wolfman";
+            let winningMovie = "wolfman";
+            let highestScore = scores.wolfman;
 
             Object.keys(scores).forEach(movie => {
 
-                if (
-                    scores[movie] >
-                    scores[winner]
-                ) {
-                    winner = movie;
+                if (scores[movie] > highestScore) {
+                    highestScore = scores[movie];
+                    winningMovie = movie;
                 }
 
             });
 
+            const result = movies[winningMovie];
 
-            const movie =
-                movies[winner];
+            document.getElementById("resultTitle").textContent =
+                result.title;
 
+            document.getElementById("resultImage").src =
+                result.image;
 
-            resultTitle.textContent =
-                movie.title;
+            document.getElementById("resultText").textContent =
+                result.text;
 
-            resultImage.src =
-                movie.image;
-
-            resultImage.alt =
-                movie.title;
-
-            resultText.textContent =
-                movie.text;
-
-
-            sendResultToGoogleSheet(
-                movie.title
-            );
-
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
+            sendResultToGoogleSheet(result.title);
         }
 
 
@@ -1044,20 +884,22 @@
 
         function sendResultToGoogleSheet(result) {
 
-            fetch(
-                GOOGLE_SCRIPT_URL,
-                {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-                    body: JSON.stringify({
-                        result: result
-                    })
-                }
-            ).catch(error => {
+            fetch(GOOGLE_SCRIPT_URL, {
+
+                method: "POST",
+
+                mode: "no-cors",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body: JSON.stringify({
+                    result: result
+                })
+
+            }).catch(error => {
 
                 console.error(
                     "Δεν ήταν δυνατή η αποστολή του αποτελέσματος.",
@@ -1065,7 +907,6 @@
                 );
 
             });
-
         }
 
 
@@ -1073,7 +914,7 @@
            RESTART
         ========================= */
 
-        restartButton.addEventListener("click", () => {
+        function restartQuiz() {
 
             currentQuestion = 0;
 
@@ -1084,29 +925,21 @@
                 rite: 0
             };
 
+            document.getElementById("resultScreen")
+                .classList.add("hidden");
 
-            resultScreen.style.display = "none";
-            introScreen.style.display = "flex";
+            document.getElementById("introScreen")
+                .classList.remove("hidden");
 
+            const tapMessage =
+                document.getElementById("tapMessage");
 
             tapMessage.classList.remove("liked");
-
-            const heart =
-                tapMessage.querySelector(".heart-pop");
-
-            if (heart) {
-                heart.textContent = "♡";
-            }
-
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
+            tapMessage.innerHTML = "Πάτα ♡";
+        }
 
     </script>
 
 </body>
 </html>
+```
