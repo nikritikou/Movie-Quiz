@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Movie Date</title>
 
     <style>
@@ -15,13 +16,13 @@
             background: #0f0a46;
             color: white;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-            min-height: 100vh;
         }
 
         .container {
-            width: min(900px, 92%);
+            width: 100%;
+            max-width: 850px;
             margin: 0 auto;
-            padding: 70px 0;
+            padding: 60px 20px;
             text-align: center;
         }
 
@@ -35,41 +36,46 @@
             color: white;
         }
 
-        .intro {
+        .intro-text {
             font-size: 20px;
             line-height: 1.7;
-            margin-bottom: 45px;
+            margin-bottom: 40px;
         }
 
-        .chat {
-            width: min(500px, 100%);
-            margin: 35px auto 0;
+        .chat-box {
+            max-width: 500px;
+            margin: 0 auto 50px auto;
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
-        .message {
-            max-width: 75%;
+        .chat-message {
             padding: 14px 18px;
             border-radius: 20px;
             font-size: 17px;
             line-height: 1.4;
+            max-width: 80%;
         }
 
-        .message.ready {
-            align-self: flex-end;
-            background: white;
-            color: #0f0a46;
-        }
-
-        .tap-message {
+        .chat-message.other {
             align-self: flex-start;
             background: white;
             color: #0f0a46;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            background: #ddd8ff;
+            color: #0f0a46;
+            border-bottom-right-radius: 5px;
+        }
+
+        .tap-message {
             cursor: pointer;
+            transition: all 0.25s ease;
             user-select: none;
-            transition: 0.3s ease;
         }
 
         .tap-message:hover {
@@ -82,15 +88,15 @@
             transform: scale(1.05);
         }
 
-        .quiz,
-        .result {
+        .quiz-section {
             display: none;
         }
 
         .question-number {
-            font-size: 16px;
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 18px;
             margin-bottom: 15px;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .question {
@@ -105,21 +111,22 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            width: min(700px, 100%);
+            max-width: 700px;
             margin: 0 auto;
         }
 
         .answer-button {
             width: 100%;
-            padding: 18px 22px;
-            border: 2px solid white;
+            padding: 18px 20px;
             border-radius: 14px;
+            border: 2px solid white;
             background: transparent;
             color: white;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
             font-size: 17px;
+            line-height: 1.4;
             cursor: pointer;
-            transition: 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         .answer-button:hover:not(:disabled) {
@@ -137,37 +144,44 @@
             cursor: default;
         }
 
+        .result-section {
+            display: none;
+        }
+
         .result-title {
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 48px;
             font-weight: 900;
+            line-height: 1.1;
             margin-bottom: 30px;
         }
 
-        .result img {
-            width: min(500px, 100%);
-            max-height: 600px;
-            object-fit: cover;
+        .result-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
             border-radius: 18px;
-            margin-bottom: 30px;
+            display: block;
+            margin: 0 auto 30px auto;
         }
 
         .result-text {
             font-size: 20px;
             line-height: 1.7;
-            margin-bottom: 35px;
+            margin: 0 auto 35px auto;
+            max-width: 700px;
         }
 
         .restart-button {
+            padding: 15px 35px;
             border: 2px solid white;
+            border-radius: 12px;
             background: white;
             color: #0f0a46;
-            padding: 14px 35px;
-            border-radius: 12px;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-            font-size: 17px;
+            font-size: 18px;
             cursor: pointer;
-            transition: 0.25s ease;
+            transition: all 0.2s ease;
         }
 
         .restart-button:hover {
@@ -177,7 +191,7 @@
 
         @media (max-width: 600px) {
             .container {
-                padding: 45px 0;
+                padding: 40px 15px;
             }
 
             .movie-date-title {
@@ -186,13 +200,13 @@
                 margin-bottom: 28px;
             }
 
-            .intro {
+            .intro-text {
                 font-size: 17px;
                 line-height: 1.6;
             }
 
             .question {
-                font-size: 23px;
+                font-size: 24px;
             }
 
             .answer-button {
@@ -201,7 +215,7 @@
             }
 
             .result-title {
-                font-size: 35px;
+                font-size: 36px;
             }
 
             .result-text {
@@ -216,11 +230,11 @@
 <div class="container">
 
     <!-- INTRO -->
-    <section id="intro">
+    <section id="intro-section">
 
         <h1 class="movie-date-title">MOVIE DATE</h1>
 
-        <div class="intro">
+        <div class="intro-text">
             Δεν θα πρωτοτυπήσω, καθώς όπως και εσύ, είμαι άνθρωπος της συνήθειας.
             <br><br>
 
@@ -235,16 +249,16 @@
             Ready?
         </div>
 
-        <div class="chat">
+        <div class="chat-box">
 
-            <div class="message ready">
+            <div class="chat-message user">
                 Ready
             </div>
 
             <div
-                id="tapMessage"
-                class="message tap-message"
-                onclick="startQuiz()"
+                id="like-button"
+                class="chat-message other tap-message"
+                onclick="likeAndStart()"
             >
                 Πάτα ♡
             </div>
@@ -255,9 +269,9 @@
 
 
     <!-- QUIZ -->
-    <section id="quiz" class="quiz">
+    <section id="quiz-section" class="quiz-section">
 
-        <div id="questionNumber" class="question-number"></div>
+        <div id="question-number" class="question-number"></div>
 
         <div id="question" class="question"></div>
 
@@ -267,15 +281,23 @@
 
 
     <!-- RESULT -->
-    <section id="result" class="result">
+    <section id="result-section" class="result-section">
 
-        <div id="resultTitle" class="result-title"></div>
+        <div id="result-title" class="result-title"></div>
 
-        <img id="resultImage" src="" alt="Movie">
+        <img
+            id="result-image"
+            class="result-image"
+            src=""
+            alt="Movie"
+        >
 
-        <div id="resultText" class="result-text"></div>
+        <div id="result-text" class="result-text"></div>
 
-        <button class="restart-button" onclick="restartQuiz()">
+        <button
+            class="restart-button"
+            onclick="restartQuiz()"
+        >
             Ξανά
         </button>
 
@@ -287,7 +309,7 @@
 <script>
 
     /*
-     * GOOGLE APPS SCRIPT URL
+     * GOOGLE APPS SCRIPT WEB APP
      */
     const GOOGLE_SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycbxLQUUDEjkTAGGkVBeWoEWS8vLHIr1Vn389VmGta-eZjhK9HsIhyGuot9V-Qx1eGEEWPw/exec";
@@ -301,29 +323,25 @@
         wolfman: {
             title: "The Wolfman",
             image: "./images/wolfman.jpg",
-            text:
-                "Παίρνω το ρίσκο με αυτή την ταινία, καθώς έχω να τη δω από τα 12 μου. Τότε προφανώς μου είχε αρέσει και με είχε τρομάξει. Για να δούμε αν θα γίνει το ίδιο και τώρα."
+            text: "Παίρνω το ρίσκο με αυτή την ταινία, καθώς έχω να τη δω από τα 12 μου. Τότε προφανώς μου είχε αρέσει και με είχε τρομάξει. Για να δούμε αν θα γίνει το ίδιο και τώρα."
         },
 
         timeCut: {
             title: "Time Cut",
             image: "./images/time-cut.jpg",
-            text:
-                "Δεν θα σε προϊδεάσω καθόλου. Θα σου πω μόνο πως αν γυρνούσα τον χρόνο πίσω, θα επέλεγα να σε γνωρίσω ξανά."
+            text: "Δεν θα σε προϊδεάσω καθόλου. Θα σου πω μόνο πως αν γυρνούσα τον χρόνο πίσω, θα επέλεγα να σε γνωρίσω ξανά."
         },
 
         silence: {
             title: "The Silence",
             image: "./images/the-silence.jpg",
-            text:
-                "Κρατάω τη σιωπή μου... Ραντεβού το βράδυ"
+            text: "Κρατάω τη σιωπή μου... Ραντεβού το βράδυ"
         },
 
         rite: {
             title: "The Rite",
             image: "./images/the-rite.jpg",
-            text:
-                "Κάποιες ταινίες καλύτερα να μην τις βλέπεις μόνος. Ευτυχώς, απόψε θα είμαι μαζί σου σε αυτό, ακόμα και έτσι."
+            text: "Κάποιες ταινίες καλύτερα να μην τις βλέπεις μόνος. Ευτυχώς, απόψε θα είμαι μαζί σου σε αυτό, ακόμα και έτσι."
         }
 
     };
@@ -335,9 +353,7 @@
     const questions = [
 
         {
-            question:
-                "Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?",
-
+            question: "Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?",
             answers: [
                 {
                     text: "Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.",
@@ -358,11 +374,8 @@
             ]
         },
 
-
         {
-            question:
-                "Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?",
-
+            question: "Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?",
             answers: [
                 {
                     text: "Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.",
@@ -383,11 +396,8 @@
             ]
         },
 
-
         {
-            question:
-                "Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?",
-
+            question: "Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?",
             answers: [
                 {
                     text: "Ένα ρολόι.",
@@ -408,11 +418,8 @@
             ]
         },
 
-
         {
-            question:
-                "Θα ήθελες να ξέρεις τι θα συμβεί αύριο?",
-
+            question: "Θα ήθελες να ξέρεις τι θα συμβεί αύριο?",
             answers: [
                 {
                     text: "Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.",
@@ -433,11 +440,8 @@
             ]
         },
 
-
         {
-            question:
-                "Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?",
-
+            question: "Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?",
             answers: [
                 {
                     text: "«Ποιος το άφησε εδώ;»",
@@ -458,11 +462,8 @@
             ]
         },
 
-
         {
-            question:
-                "Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?",
-
+            question: "Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?",
             answers: [
                 {
                     text: "Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.",
@@ -483,11 +484,8 @@
             ]
         },
 
-
         {
-            question:
-                "Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?",
-
+            question: "Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?",
             answers: [
                 {
                     text: "Προσπαθώ να ανακαλύψω ποιος είναι.",
@@ -508,11 +506,8 @@
             ]
         },
 
-
         {
-            question:
-                "Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?",
-
+            question: "Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?",
             answers: [
                 {
                     text: "Μαύρη πόρτα με κόκκινο φως.",
@@ -533,11 +528,8 @@
             ]
         },
 
-
         {
-            question:
-                "Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?",
-
+            question: "Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?",
             answers: [
                 {
                     text: "Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.",
@@ -558,11 +550,8 @@
             ]
         },
 
-
         {
-            question:
-                "Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?",
-
+            question: "Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?",
             answers: [
                 {
                     text: "Θέλω να το δω με τα μάτια μου.",
@@ -583,11 +572,8 @@
             ]
         },
 
-
         {
-            question:
-                "Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?",
-
+            question: "Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?",
             answers: [
                 {
                     text: "Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.",
@@ -608,11 +594,8 @@
             ]
         },
 
-
         {
-            question:
-                "Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?",
-
+            question: "Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?",
             answers: [
                 {
                     text: "Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.",
@@ -633,11 +616,8 @@
             ]
         },
 
-
         {
-            question:
-                "Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?",
-
+            question: "Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?",
             answers: [
                 {
                     text: "Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.",
@@ -658,11 +638,8 @@
             ]
         },
 
-
         {
-            question:
-                "Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?",
-
+            question: "Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?",
             answers: [
                 {
                     text: "Να μη βλέπεις.",
@@ -690,7 +667,8 @@
      * QUIZ VARIABLES
      */
     let currentQuestion = 0;
-    let score = {
+
+    let scores = {
         wolfman: 0,
         timeCut: 0,
         silence: 0,
@@ -701,35 +679,42 @@
 
 
     /*
+     * START AFTER LIKE
+     */
+    function likeAndStart() {
+
+        const likeButton = document.getElementById("like-button");
+
+        likeButton.innerHTML = "♥";
+        likeButton.classList.add("liked");
+
+        setTimeout(() => {
+            startQuiz();
+        }, 350);
+    }
+
+
+    /*
      * START QUIZ
      */
     function startQuiz() {
 
-        const tapMessage =
-            document.getElementById("tapMessage");
+        currentQuestion = 0;
 
-        tapMessage.innerHTML = "♥";
-        tapMessage.classList.add("liked");
+        scores = {
+            wolfman: 0,
+            timeCut: 0,
+            silence: 0,
+            rite: 0
+        };
 
         selectedAnswers = [];
 
-        setTimeout(() => {
+        document.getElementById("intro-section").style.display = "none";
+        document.getElementById("result-section").style.display = "none";
+        document.getElementById("quiz-section").style.display = "block";
 
-            document.getElementById("intro").style.display = "none";
-            document.getElementById("quiz").style.display = "block";
-
-            currentQuestion = 0;
-
-            score = {
-                wolfman: 0,
-                timeCut: 0,
-                silence: 0,
-                rite: 0
-            };
-
-            showQuestion();
-
-        }, 350);
+        showQuestion();
     }
 
 
@@ -740,10 +725,10 @@
 
         const question = questions[currentQuestion];
 
-        document.getElementById("questionNumber").innerText =
+        document.getElementById("question-number").textContent =
             `Ερώτηση ${currentQuestion + 1} / ${questions.length}`;
 
-        document.getElementById("question").innerText =
+        document.getElementById("question").textContent =
             question.question;
 
         const answersContainer =
@@ -751,14 +736,13 @@
 
         answersContainer.innerHTML = "";
 
-
         /*
          * RANDOMIZE ANSWERS
          */
         const shuffledAnswers =
-            [...question.answers]
-                .sort(() => Math.random() - 0.5);
-
+            [...question.answers].sort(
+                () => Math.random() - 0.5
+            );
 
         shuffledAnswers.forEach(answer => {
 
@@ -767,39 +751,43 @@
 
             button.className = "answer-button";
 
-            button.innerText =
-                answer.text;
+            button.textContent = answer.text;
 
-            button.onclick = () => {
+            button.addEventListener("click", () => {
 
                 /*
-                 * Prevent multiple clicks
+                 * Prevent double click
+                 */
+                if (button.disabled) {
+                    return;
+                }
+
+                /*
+                 * Highlight selected answer
+                 */
+                button.classList.add("selected");
+
+                /*
+                 * Disable all answers
                  */
                 const allButtons =
-                    document.querySelectorAll(".answer-button");
+                    answersContainer.querySelectorAll(
+                        ".answer-button"
+                    );
 
                 allButtons.forEach(btn => {
                     btn.disabled = true;
                 });
 
-
-                /*
-                 * Selected answer color
-                 */
-                button.classList.add("selected");
-
-
                 /*
                  * Add score
                  */
-                score[answer.movie]++;
-
+                scores[answer.movie]++;
 
                 /*
-                 * Save exact answer
+                 * Save answer text
                  */
                 selectedAnswers.push(answer.text);
-
 
                 /*
                  * Next question
@@ -808,24 +796,23 @@
 
                     currentQuestion++;
 
-                    if (currentQuestion < questions.length) {
-
+                    if (
+                        currentQuestion <
+                        questions.length
+                    ) {
                         showQuestion();
-
                     } else {
-
                         showResult();
-
                     }
 
                 }, 550);
 
-            };
-
+            });
 
             answersContainer.appendChild(button);
 
         });
+
     }
 
 
@@ -834,73 +821,70 @@
      */
     function showResult() {
 
-        document.getElementById("quiz").style.display = "none";
-        document.getElementById("result").style.display = "block";
-
+        document.getElementById("quiz-section").style.display = "none";
+        document.getElementById("result-section").style.display = "block";
 
         /*
-         * Default winner
-         * In case of tie, Wolfman wins.
+         * Wolfman is the default in case of a tie.
          */
         let winningMovie = "wolfman";
 
-        if (score.timeCut > score[winningMovie]) {
-            winningMovie = "timeCut";
-        }
+        Object.keys(scores).forEach(movie => {
 
-        if (score.silence > score[winningMovie]) {
-            winningMovie = "silence";
-        }
+            if (
+                scores[movie] >
+                scores[winningMovie]
+            ) {
+                winningMovie = movie;
+            }
 
-        if (score.rite > score[winningMovie]) {
-            winningMovie = "rite";
-        }
-
+        });
 
         const movie = movies[winningMovie];
 
-
-        document.getElementById("resultTitle").innerText =
+        document.getElementById("result-title").textContent =
             movie.title;
 
-        document.getElementById("resultImage").src =
+        document.getElementById("result-image").src =
             movie.image;
 
-        document.getElementById("resultText").innerText =
+        document.getElementById("result-text").textContent =
             movie.text;
 
-
         /*
-         * SEND RESULT + ANSWERS TO GOOGLE SHEETS
+         * Send result to Google Sheet
          */
-        sendResultToGoogleSheet(movie.title);
+        sendResultToGoogleSheet(
+            movie.title
+        );
+
     }
 
 
     /*
-     * SEND DATA TO GOOGLE SHEETS
+     * SEND RESULT TO GOOGLE SHEET
      */
     function sendResultToGoogleSheet(result) {
 
-        fetch(GOOGLE_SCRIPT_URL, {
+        fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+                method: "POST",
 
-            method: "POST",
+                mode: "no-cors",
 
-            mode: "no-cors",
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
 
-            headers: {
-                "Content-Type": "text/plain;charset=utf-8"
-            },
-
-            body: JSON.stringify({
-
-                answers: selectedAnswers,
-
-                result: result
-
-            })
-
-        }).catch(error => {
+                body: JSON.stringify({
+                    answers: selectedAnswers,
+                    result: result
+                })
+            }
+        )
+        .catch(error => {
 
             console.error(
                 "Δεν ήταν δυνατή η αποστολή του αποτελέσματος.",
@@ -908,6 +892,7 @@
             );
 
         });
+
     }
 
 
@@ -916,23 +901,27 @@
      */
     function restartQuiz() {
 
-        document.getElementById("result").style.display = "none";
-        document.getElementById("intro").style.display = "block";
+        document.getElementById("result-section").style.display = "none";
 
-        const tapMessage =
-            document.getElementById("tapMessage");
+        document.getElementById("intro-section").style.display = "block";
 
-        tapMessage.innerHTML = "Πάτα ♡";
-        tapMessage.classList.remove("liked");
+        const likeButton =
+            document.getElementById("like-button");
 
-        selectedAnswers = [];
+        likeButton.innerHTML = "Πάτα ♡";
 
-        score = {
+        likeButton.classList.remove("liked");
+
+        currentQuestion = 0;
+
+        scores = {
             wolfman: 0,
             timeCut: 0,
             silence: 0,
             rite: 0
         };
+
+        selectedAnswers = [];
 
     }
 
