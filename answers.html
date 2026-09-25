@@ -16,6 +16,9 @@ body {
     margin: 0;
     min-height: 100vh;
     background: #0f0a46;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     overflow: hidden;
 }
@@ -24,10 +27,11 @@ body {
 
 .book {
     position: relative;
-    width: min(92vw, 520px);
-    height: min(88vh, 720px);
-    margin: 6vh auto 0;
-    perspective: 1800px;
+    width: 92vw;
+    max-width: 430px;
+    height: 88vh;
+    max-height: 720px;
+    perspective: 2000px;
 }
 
 /* COVER */
@@ -37,29 +41,25 @@ body {
     inset: 0;
     background: #0f0a46;
     color: white;
-    border-radius: 4px 12px 12px 4px;
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.45),
-        inset -8px 0 12px rgba(0,0,0,0.12);
-
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
-
-    padding: 40px;
+    padding: 35px;
 
     transform-origin: left center;
     transform-style: preserve-3d;
 
     transition:
         transform 0.9s cubic-bezier(.65,.05,.36,1),
-        box-shadow 0.9s;
+        box-shadow 0.9s ease;
 
-    z-index: 30;
-
-    touch-action: pan-y;
+    z-index: 100;
     cursor: grab;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.4);
 }
 
 .cover:active {
@@ -68,19 +68,14 @@ body {
 
 .cover.open {
     transform: rotateY(-165deg);
-    box-shadow: none;
-    pointer-events: none;
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.25);
 }
 
-.cover-content h1 {
-    font-size: 28px;
-    line-height: 1.25;
-    margin: 0 0 20px;
-}
-
-.cover-content p {
-    font-size: 15px;
-    opacity: 0.85;
+.cover h1 {
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -93,26 +88,28 @@ body {
     background: white;
     color: #111;
 
-    border-radius: 4px 12px 12px 4px;
+    border-radius: 8px;
 
-    padding: 34px 28px 28px;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.18);
+    padding: 28px 24px 25px;
 
     transform-origin: left center;
     transform-style: preserve-3d;
 
     transition:
-        transform 0.85s cubic-bezier(.65,.05,.36,1);
+        transform 0.9s cubic-bezier(.65,.05,.36,1),
+        box-shadow 0.9s ease;
 
-    backface-visibility: hidden;
+    cursor: grab;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.22);
+
+    user-select: none;
     touch-action: pan-y;
-    cursor: grab;
 }
 
 .page:active {
@@ -120,48 +117,42 @@ body {
 }
 
 .page.flipped {
-    transform: rotateY(-180deg);
-}
-
-/* PAGE NUMBER */
-
-.page-number {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-
-    text-align: center;
-
-    font-size: 12px;
-    color: #777;
+    transform: rotateY(-165deg);
 }
 
 /* QUESTION */
 
 .question {
+    width: 100%;
+    text-align: center;
+
     font-size: 18px;
-    font-weight: bold;
-    line-height: 1.45;
+    line-height: 1.4;
+    font-weight: 600;
 
-    margin-bottom: 22px;
-
-    text-align: left;
+    margin-bottom: 20px;
 }
 
 /* ANSWERS */
 
+.answers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .answer {
-    font-size: 14px;
-    line-height: 1.45;
+    width: 100%;
 
-    margin-bottom: 13px;
+    font-size: 15px;
+    line-height: 1.35;
 
-    padding: 10px 12px;
-
-    border-radius: 5px;
+    padding: 5px 0;
 
     text-align: left;
+
+    font-weight: 500;
 }
 
 /* MOVIE COLORS */
@@ -170,7 +161,7 @@ body {
     color: #7a2638;
 }
 
-.timecut {
+.timeCut {
     color: #4b285f;
 }
 
@@ -187,21 +178,22 @@ body {
 .answer.selected {
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
+    text-underline-offset: 4px;
 }
 
-/* MOVIE */
-
-.movie {
-    margin-top: auto;
-    text-align: center;
-    padding-top: 8px;
-}
+/* MOVIE NAME */
 
 .movie-name {
-    font-size: 14px;
-    font-weight: bold;
+    margin-top: auto;
+    padding-top: 15px;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    text-align: center;
 }
+
+/* MOVIE PHOTO */
 
 .movie-photo {
     display: block;
@@ -219,26 +211,41 @@ body {
         0 5px 15px rgba(0,0,0,0.22);
 }
 
+/* PAGE NUMBER */
+
+.page-number {
+    position: absolute;
+
+    bottom: 10px;
+
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #777;
+}
+
 /* MOBILE */
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
 
     .book {
-        width: 90vw;
-        height: 82vh;
-        margin-top: 9vh;
+        width: 94vw;
+        height: 88vh;
     }
 
-    .cover {
-        padding: 30px;
-    }
-
-    .cover-content h1 {
-        font-size: 23px;
+    .cover h1 {
+        font-size: 25px;
     }
 
     .page {
-        padding: 26px 21px 25px;
+        padding:
+            22px
+            18px
+            25px;
     }
 
     .question {
@@ -247,13 +254,11 @@ body {
     }
 
     .answer {
-        font-size: 12.5px;
-        margin-bottom: 9px;
-        padding: 8px 9px;
+        font-size: 13.5px;
     }
 
-    .movie-name {
-        font-size: 12px;
+    .answers {
+        gap: 9px;
     }
 
     .movie-photo {
@@ -262,8 +267,8 @@ body {
         margin-top: 10px;
     }
 
-    .page-number {
-        font-size: 10px;
+    .movie-name {
+        font-size: 15px;
     }
 }
 
@@ -278,59 +283,54 @@ body {
 
     <div class="cover" id="cover">
 
-        <div class="cover-content">
-
-            <h1>
-                Απαντήσεις Quiz<br>
-                για Movie Date
-            </h1>
-
-            <p>
-                Σύρε τη σελίδα για να ξεφυλλίσεις
-            </p>
-
-        </div>
+        <h1>
+            Απαντήσεις Quiz<br>
+            για Movie Date
+        </h1>
 
     </div>
 
 
     <!-- PAGE 1 -->
 
-    <div class="page" data-page="1">
+    <div class="page">
 
         <div class="question">
             Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?
         </div>
 
-        <div class="answer wolfman">
-            Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut">
-            Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.
-        </div>
-
-        <div class="answer silence">
-            Μια άδεια πόλη.
-        </div>
-
-        <div class="answer rite selected">
-            Ένα παλιό κτίριο με ιστορία.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name rite">
-                The Rite
+            <div class="answer wolfman">
+                Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/the-rite.jpg"
-                alt="The Rite">
+            <div class="answer timeCut">
+                Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.
+            </div>
+
+            <div class="answer silence">
+                Μια άδεια πόλη.
+            </div>
+
+            <div class="answer rite selected">
+                Ένα παλιό κτίριο με ιστορία.
+            </div>
+
         </div>
 
+        <div class="movie-name rite">
+            The Rite
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/the-rite.jpg"
+            alt="The Rite"
+        >
+
         <div class="page-number">
-            1 / 14
+            1/14
         </div>
 
     </div>
@@ -338,41 +338,44 @@ body {
 
     <!-- PAGE 2 -->
 
-    <div class="page" data-page="2">
+    <div class="page">
 
         <div class="question">
             Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?
         </div>
 
-        <div class="answer timecut">
-            Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.
-        </div>
+        <div class="answers">
 
-        <div class="answer rite">
-            Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.
-        </div>
-
-        <div class="answer silence">
-            Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.
-        </div>
-
-        <div class="answer wolfman selected">
-            Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name wolfman">
-                The Wolfman
+            <div class="answer timeCut">
+                Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/wolfman.jpg"
-                alt="The Wolfman">
+            <div class="answer rite">
+                Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.
+            </div>
+
+            <div class="answer silence">
+                Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.
+            </div>
+
+            <div class="answer wolfman selected">
+                Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.
+            </div>
+
         </div>
 
+        <div class="movie-name wolfman">
+            The Wolfman
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/wolfman.jpg"
+            alt="The Wolfman"
+        >
+
         <div class="page-number">
-            2 / 14
+            2/14
         </div>
 
     </div>
@@ -380,41 +383,44 @@ body {
 
     <!-- PAGE 3 -->
 
-    <div class="page" data-page="3">
+    <div class="page">
 
         <div class="question">
             Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?
         </div>
 
-        <div class="answer timecut">
-            Ένα ρολόι.
-        </div>
+        <div class="answers">
 
-        <div class="answer rite">
-            Ένα παλιό κειμήλιο.
-        </div>
-
-        <div class="answer silence">
-            Ένα ζευγάρι ακουστικά.
-        </div>
-
-        <div class="answer wolfman selected">
-            Ένα φυλαχτό.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name wolfman">
-                The Wolfman
+            <div class="answer timeCut">
+                Ένα ρολόι.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/wolfman.jpg"
-                alt="The Wolfman">
+            <div class="answer rite">
+                Ένα παλιό κειμήλιο.
+            </div>
+
+            <div class="answer silence">
+                Ένα ζευγάρι ακουστικά.
+            </div>
+
+            <div class="answer wolfman selected">
+                Ένα φυλαχτό.
+            </div>
+
         </div>
 
+        <div class="movie-name wolfman">
+            The Wolfman
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/wolfman.jpg"
+            alt="The Wolfman"
+        >
+
         <div class="page-number">
-            3 / 14
+            3/14
         </div>
 
     </div>
@@ -422,41 +428,44 @@ body {
 
     <!-- PAGE 4 -->
 
-    <div class="page" data-page="4">
+    <div class="page">
 
         <div class="question">
             Θα ήθελες να ξέρεις τι θα συμβεί αύριο?
         </div>
 
-        <div class="answer silence">
-            Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut selected">
-            Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.
-        </div>
-
-        <div class="answer wolfman">
-            Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.
-        </div>
-
-        <div class="answer rite">
-            Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer silence">
+                Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer timeCut selected">
+                Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.
+            </div>
+
+            <div class="answer wolfman">
+                Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.
+            </div>
+
+            <div class="answer rite">
+                Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            4 / 14
+            4/14
         </div>
 
     </div>
@@ -464,41 +473,44 @@ body {
 
     <!-- PAGE 5 -->
 
-    <div class="page" data-page="5">
+    <div class="page">
 
         <div class="question">
             Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?
         </div>
 
-        <div class="answer rite">
-            «Ποιος το άφησε εδώ;»
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut selected">
-            «Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»
-        </div>
-
-        <div class="answer wolfman">
-            «Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»
-        </div>
-
-        <div class="answer silence">
-            «Καλύτερα να μην ασχοληθώ καν.»
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer rite">
+                «Ποιος το άφησε εδώ;»
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer timeCut selected">
+                «Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»
+            </div>
+
+            <div class="answer wolfman">
+                «Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»
+            </div>
+
+            <div class="answer silence">
+                «Καλύτερα να μην ασχοληθώ καν.»
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            5 / 14
+            5/14
         </div>
 
     </div>
@@ -506,41 +518,44 @@ body {
 
     <!-- PAGE 6 -->
 
-    <div class="page" data-page="6">
+    <div class="page">
 
         <div class="question">
             Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?
         </div>
 
-        <div class="answer timecut selected">
-            Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.
-        </div>
+        <div class="answers">
 
-        <div class="answer silence">
-            Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.
-        </div>
-
-        <div class="answer wolfman">
-            Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.
-        </div>
-
-        <div class="answer rite">
-            Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer timeCut selected">
+                Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer silence">
+                Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.
+            </div>
+
+            <div class="answer wolfman">
+                Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.
+            </div>
+
+            <div class="answer rite">
+                Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            6 / 14
+            6/14
         </div>
 
     </div>
@@ -548,41 +563,44 @@ body {
 
     <!-- PAGE 7 -->
 
-    <div class="page" data-page="7">
+    <div class="page">
 
         <div class="question">
             Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?
         </div>
 
-        <div class="answer rite">
-            Προσπαθώ να ανακαλύψω ποιος είναι.
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut">
-            Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.
-        </div>
-
-        <div class="answer wolfman selected">
-            Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.
-        </div>
-
-        <div class="answer silence">
-            Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name wolfman">
-                The Wolfman
+            <div class="answer rite">
+                Προσπαθώ να ανακαλύψω ποιος είναι.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/wolfman.jpg"
-                alt="The Wolfman">
+            <div class="answer timeCut">
+                Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.
+            </div>
+
+            <div class="answer wolfman selected">
+                Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.
+            </div>
+
+            <div class="answer silence">
+                Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.
+            </div>
+
         </div>
 
+        <div class="movie-name wolfman">
+            The Wolfman
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/wolfman.jpg"
+            alt="The Wolfman"
+        >
+
         <div class="page-number">
-            7 / 14
+            7/14
         </div>
 
     </div>
@@ -590,41 +608,44 @@ body {
 
     <!-- PAGE 8 -->
 
-    <div class="page" data-page="8">
+    <div class="page">
 
         <div class="question">
             Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?
         </div>
 
-        <div class="answer wolfman">
-            Μαύρη πόρτα με κόκκινο φως.
-        </div>
+        <div class="answers">
 
-        <div class="answer silence">
-            Καφέ πόρτα με πράσινο φως.
-        </div>
-
-        <div class="answer rite">
-            Γκρι πόρτα με λευκό φως.
-        </div>
-
-        <div class="answer timecut selected">
-            Λευκή πόρτα με μωβ φως.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer wolfman">
+                Μαύρη πόρτα με κόκκινο φως.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer silence">
+                Καφέ πόρτα με πράσινο φως.
+            </div>
+
+            <div class="answer rite">
+                Γκρι πόρτα με λευκό φως.
+            </div>
+
+            <div class="answer timeCut selected">
+                Λευκή πόρτα με μωβ φως.
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            8 / 14
+            8/14
         </div>
 
     </div>
@@ -632,41 +653,44 @@ body {
 
     <!-- PAGE 9 -->
 
-    <div class="page" data-page="9">
+    <div class="page">
 
         <div class="question">
             Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?
         </div>
 
-        <div class="answer silence">
-            Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.
-        </div>
+        <div class="answers">
 
-        <div class="answer rite">
-            Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.
-        </div>
-
-        <div class="answer timecut">
-            Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.
-        </div>
-
-        <div class="answer wolfman selected">
-            Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name wolfman">
-                The Wolfman
+            <div class="answer silence">
+                Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/wolfman.jpg"
-                alt="The Wolfman">
+            <div class="answer rite">
+                Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.
+            </div>
+
+            <div class="answer timeCut">
+                Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.
+            </div>
+
+            <div class="answer wolfman selected">
+                Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.
+            </div>
+
         </div>
 
+        <div class="movie-name wolfman">
+            The Wolfman
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/wolfman.jpg"
+            alt="The Wolfman"
+        >
+
         <div class="page-number">
-            9 / 14
+            9/14
         </div>
 
     </div>
@@ -674,41 +698,44 @@ body {
 
     <!-- PAGE 10 -->
 
-    <div class="page" data-page="10">
+    <div class="page">
 
         <div class="question">
             Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?
         </div>
 
-        <div class="answer timecut selected">
-            Θέλω να το δω με τα μάτια μου.
-        </div>
+        <div class="answers">
 
-        <div class="answer rite">
-            Τον πιστεύω, αλλά είμαι επιφυλακτικός.
-        </div>
-
-        <div class="answer wolfman">
-            Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.
-        </div>
-
-        <div class="answer silence">
-            Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer timeCut selected">
+                Θέλω να το δω με τα μάτια μου.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer rite">
+                Τον πιστεύω, αλλά είμαι επιφυλακτικός.
+            </div>
+
+            <div class="answer wolfman">
+                Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.
+            </div>
+
+            <div class="answer silence">
+                Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            10 / 14
+            10/14
         </div>
 
     </div>
@@ -716,41 +743,44 @@ body {
 
     <!-- PAGE 11 -->
 
-    <div class="page" data-page="11">
+    <div class="page">
 
         <div class="question">
             Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?
         </div>
 
-        <div class="answer silence">
-            Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.
-        </div>
+        <div class="answers">
 
-        <div class="answer wolfman">
-            Κάτι που μου θυμίζει ποιος είμαι.
-        </div>
-
-        <div class="answer rite">
-            Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.
-        </div>
-
-        <div class="answer timecut selected">
-            Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name timecut">
-                Time Cut
+            <div class="answer silence">
+                Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/time-cut.jpg"
-                alt="Time Cut">
+            <div class="answer wolfman">
+                Κάτι που μου θυμίζει ποιος είμαι.
+            </div>
+
+            <div class="answer rite">
+                Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.
+            </div>
+
+            <div class="answer timeCut selected">
+                Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.
+            </div>
+
         </div>
 
+        <div class="movie-name timeCut">
+            Time Cut
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/time-cut.jpg"
+            alt="Time Cut"
+        >
+
         <div class="page-number">
-            11 / 14
+            11/14
         </div>
 
     </div>
@@ -758,41 +788,44 @@ body {
 
     <!-- PAGE 12 -->
 
-    <div class="page" data-page="12">
+    <div class="page">
 
         <div class="question">
             Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?
         </div>
 
-        <div class="answer rite selected">
-            Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut">
-            Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.
-        </div>
-
-        <div class="answer wolfman">
-            Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.
-        </div>
-
-        <div class="answer silence">
-            Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name rite">
-                The Rite
+            <div class="answer rite selected">
+                Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/the-rite.jpg"
-                alt="The Rite">
+            <div class="answer timeCut">
+                Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.
+            </div>
+
+            <div class="answer wolfman">
+                Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.
+            </div>
+
+            <div class="answer silence">
+                Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.
+            </div>
+
         </div>
 
+        <div class="movie-name rite">
+            The Rite
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/the-rite.jpg"
+            alt="The Rite"
+        >
+
         <div class="page-number">
-            12 / 14
+            12/14
         </div>
 
     </div>
@@ -800,41 +833,44 @@ body {
 
     <!-- PAGE 13 -->
 
-    <div class="page" data-page="13">
+    <div class="page">
 
         <div class="question">
             Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?
         </div>
 
-        <div class="answer rite">
-            Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.
-        </div>
+        <div class="answers">
 
-        <div class="answer timecut">
-            Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.
-        </div>
-
-        <div class="answer silence selected">
-            Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.
-        </div>
-
-        <div class="answer wolfman">
-            Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name silence">
-                The Silence
+            <div class="answer rite">
+                Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/the-silence.jpg"
-                alt="The Silence">
+            <div class="answer timeCut">
+                Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.
+            </div>
+
+            <div class="answer silence selected">
+                Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.
+            </div>
+
+            <div class="answer wolfman">
+                Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.
+            </div>
+
         </div>
 
+        <div class="movie-name silence">
+            The Silence
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/the-silence.jpg"
+            alt="The Silence"
+        >
+
         <div class="page-number">
-            13 / 14
+            13/14
         </div>
 
     </div>
@@ -842,41 +878,44 @@ body {
 
     <!-- PAGE 14 -->
 
-    <div class="page" data-page="14">
+    <div class="page">
 
         <div class="question">
             Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?
         </div>
 
-        <div class="answer wolfman">
-            Να μη βλέπεις.
-        </div>
+        <div class="answers">
 
-        <div class="answer rite">
-            Να μην ακούς.
-        </div>
-
-        <div class="answer silence selected">
-            Να μην μιλάς.
-        </div>
-
-        <div class="answer timecut">
-            Να μην θυμάσαι.
-        </div>
-
-        <div class="movie">
-            <div class="movie-name silence">
-                The Silence
+            <div class="answer wolfman">
+                Να μη βλέπεις.
             </div>
 
-            <img
-                class="movie-photo"
-                src="./images/the-silence.jpg"
-                alt="The Silence">
+            <div class="answer rite">
+                Να μην ακούς.
+            </div>
+
+            <div class="answer silence selected">
+                Να μην μιλάς.
+            </div>
+
+            <div class="answer timeCut">
+                Να μην θυμάσαι.
+            </div>
+
         </div>
 
+        <div class="movie-name silence">
+            The Silence
+        </div>
+
+        <img
+            class="movie-photo"
+            src="./images/the-silence.jpg"
+            alt="The Silence"
+        >
+
         <div class="page-number">
-            14 / 14
+            14/14
         </div>
 
     </div>
@@ -893,17 +932,33 @@ body {
 
 <script>
 
-const cover = document.getElementById("cover");
-const pages = Array.from(document.querySelectorAll(".page"));
-const book = document.getElementById("book");
-const pageFlipSound = document.getElementById("pageFlipSound");
+const cover =
+    document.getElementById("cover");
+
+const pages =
+    Array.from(
+        document.querySelectorAll(".page")
+    );
+
+const book =
+    document.getElementById("book");
+
+const pageFlipSound =
+    document.getElementById("pageFlipSound");
+
+
+/* PAGE ORDER */
 
 let currentPage = 0;
+
+
+/* DRAG */
 
 let startX = 0;
 let currentX = 0;
 
 let dragging = false;
+
 let activeElement = null;
 
 
@@ -911,27 +966,43 @@ let activeElement = null;
 
 pages.forEach((page, index) => {
 
-    page.style.zIndex = pages.length - index;
+    page.style.zIndex =
+        pages.length - index;
 
 });
 
 
+/* ================================================= */
 /* SOUND */
+/* ================================================= */
+
+/*
+   Το ηχητικό είναι 5 δευτερόλεπτα.
+
+   Κάθε φορά που γυρίζει σελίδα,
+   ξεκινάει από το 2ο δευτερόλεπτο.
+*/
 
 function playFlipSound() {
 
-    pageFlipSound.currentTime = 0;
+    pageFlipSound.pause();
+
+    pageFlipSound.currentTime = 2;
 
     pageFlipSound.play().catch(() => {});
 
 }
 
 
-/* OPEN COVER */
+/* ================================================= */
+/* COVER */
+/* ================================================= */
 
 function openCover() {
 
-    if (!cover.classList.contains("open")) {
+    if (
+        !cover.classList.contains("open")
+    ) {
 
         cover.classList.add("open");
 
@@ -942,15 +1013,20 @@ function openCover() {
 }
 
 
+/* ================================================= */
 /* NEXT PAGE */
+/* ================================================= */
 
 function nextPage() {
 
-    if (currentPage >= pages.length) {
+    if (
+        currentPage >= pages.length
+    ) {
         return;
     }
 
-    const page = pages[currentPage];
+    const page =
+        pages[currentPage];
 
     page.classList.add("flipped");
 
@@ -961,15 +1037,20 @@ function nextPage() {
 }
 
 
+/* ================================================= */
 /* PREVIOUS PAGE */
+/* ================================================= */
 
 function previousPage() {
 
-    if (currentPage <= 0) {
+    if (
+        currentPage <= 0
+    ) {
         return;
     }
 
-    const page = pages[currentPage - 1];
+    const page =
+        pages[currentPage - 1];
 
     page.classList.remove("flipped");
 
@@ -980,23 +1061,33 @@ function previousPage() {
 }
 
 
-/* POINTER START */
+/* ================================================= */
+/* DRAG START */
+/* ================================================= */
 
 function startDrag(e) {
 
     dragging = true;
 
-    activeElement = e.currentTarget;
+    activeElement =
+        e.currentTarget;
 
-    startX = e.clientX;
-    currentX = startX;
+    startX =
+        e.clientX;
 
-    activeElement.setPointerCapture(e.pointerId);
+    currentX =
+        startX;
+
+    activeElement.setPointerCapture(
+        e.pointerId
+    );
 
 }
 
 
-/* POINTER MOVE */
+/* ================================================= */
+/* DRAG MOVE */
+/* ================================================= */
 
 function moveDrag(e) {
 
@@ -1004,12 +1095,15 @@ function moveDrag(e) {
         return;
     }
 
-    currentX = e.clientX;
+    currentX =
+        e.clientX;
 
 }
 
 
-/* POINTER END */
+/* ================================================= */
+/* DRAG END */
+/* ================================================= */
 
 function endDrag(e) {
 
@@ -1017,21 +1111,24 @@ function endDrag(e) {
         return;
     }
 
-    currentX = e.clientX;
+    currentX =
+        e.clientX;
 
-    const distance = currentX - startX;
+    const distance =
+        currentX - startX;
 
     const threshold = 60;
 
 
-    /*
-        SWIPE LEFT
-        = NEXT PAGE
-    */
+    /* SWIPE LEFT */
 
-    if (distance < -threshold) {
+    if (
+        distance < -threshold
+    ) {
 
-        if (activeElement === cover) {
+        if (
+            activeElement === cover
+        ) {
 
             openCover();
 
@@ -1044,16 +1141,17 @@ function endDrag(e) {
     }
 
 
-    /*
-        SWIPE RIGHT
-        = PREVIOUS PAGE
-    */
+    /* SWIPE RIGHT */
 
-    else if (distance > threshold) {
+    else if (
+        distance > threshold
+    ) {
 
-        if (activeElement === cover) {
+        if (
+            activeElement === cover
+        ) {
 
-            /* τίποτα */
+            /* nothing */
 
         } else {
 
@@ -1071,7 +1169,9 @@ function endDrag(e) {
 }
 
 
-/* CANCEL */
+/* ================================================= */
+/* CANCEL DRAG */
+/* ================================================= */
 
 function cancelDrag() {
 
@@ -1082,7 +1182,9 @@ function cancelDrag() {
 }
 
 
-/* COVER */
+/* ================================================= */
+/* COVER POINTER EVENTS */
+/* ================================================= */
 
 cover.addEventListener(
     "pointerdown",
@@ -1105,7 +1207,9 @@ cover.addEventListener(
 );
 
 
-/* PAGES */
+/* ================================================= */
+/* PAGE POINTER EVENTS */
+/* ================================================= */
 
 pages.forEach(page => {
 
@@ -1132,70 +1236,98 @@ pages.forEach(page => {
 });
 
 
-/*
-    CLICK SUPPORT
-    για υπολογιστή
-*/
+/* ================================================= */
+/* COVER CLICK */
+/* ================================================= */
 
-cover.addEventListener("click", function(e) {
+cover.addEventListener(
+    "click",
+    function() {
 
-    if (!dragging) {
-        openCover();
-    }
+        if (!dragging) {
 
-});
-
-
-/*
-    DOUBLE CLICK
-    για εύκολο ξεφύλλισμα
-*/
-
-book.addEventListener("dblclick", function(e) {
-
-    if (e.clientX < window.innerWidth / 2) {
-
-        previousPage();
-
-    } else {
-
-        nextPage();
-
-    }
-
-});
-
-
-/*
-    KEYBOARD SUPPORT
-
-    ← προηγούμενη
-    → επόμενη
-*/
-
-document.addEventListener("keydown", function(e) {
-
-    if (e.key === "ArrowRight") {
-
-        if (!cover.classList.contains("open")) {
             openCover();
-        } else {
+
+        }
+
+    }
+);
+
+
+/* ================================================= */
+/* DOUBLE CLICK */
+/* ================================================= */
+
+book.addEventListener(
+    "dblclick",
+    function(e) {
+
+        if (
+            e.clientX <
+            window.innerWidth / 2
+        ) {
+
             previousPage();
+
+        } else {
+
+            nextPage();
+
         }
 
     }
+);
 
-    if (e.key === "ArrowLeft") {
 
-        if (!cover.classList.contains("open")) {
-            return;
+/* ================================================= */
+/* KEYBOARD */
+/* ================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e) {
+
+        /* RIGHT = NEXT */
+
+        if (
+            e.key === "ArrowRight"
+        ) {
+
+            if (
+                !cover.classList.contains("open")
+            ) {
+
+                openCover();
+
+            } else {
+
+                nextPage();
+
+            }
+
         }
 
-        nextPage();
+
+        /* LEFT = PREVIOUS */
+
+        if (
+            e.key === "ArrowLeft"
+        ) {
+
+            if (
+                !cover.classList.contains("open")
+            ) {
+
+                return;
+
+            }
+
+            previousPage();
+
+        }
 
     }
-
-});
+);
 
 </script>
 
