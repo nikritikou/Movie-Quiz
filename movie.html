@@ -229,7 +229,6 @@
 
 <div class="container">
 
-    <!-- INTRO -->
     <section id="intro-section">
 
         <h1 class="movie-date-title">MOVIE DATE</h1>
@@ -268,7 +267,6 @@
     </section>
 
 
-    <!-- QUIZ -->
     <section id="quiz-section" class="quiz-section">
 
         <div id="question-number" class="question-number"></div>
@@ -280,7 +278,6 @@
     </section>
 
 
-    <!-- RESULT -->
     <section id="result-section" class="result-section">
 
         <div id="result-title" class="result-title"></div>
@@ -306,18 +303,19 @@
 </div>
 
 
+<!-- Κρυφό iframe για την αποστολή στο Google Apps Script -->
+<iframe
+    name="google-sheet-frame"
+    style="display:none;">
+</iframe>
+
+
 <script>
 
-    /*
-     * GOOGLE APPS SCRIPT WEB APP
-     */
     const GOOGLE_SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycbxLQUUDEjkTAGGkVBeWoEWS8vLHIr1Vn389VmGta-eZjhK9HsIhyGuot9V-Qx1eGEEWPw/exec";
 
 
-    /*
-     * MOVIES
-     */
     const movies = {
 
         wolfman: {
@@ -347,325 +345,151 @@
     };
 
 
-    /*
-     * QUESTIONS
-     */
     const questions = [
 
         {
             question: "Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?",
             answers: [
-                {
-                    text: "Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Μια άδεια πόλη.",
-                    movie: "silence"
-                },
-                {
-                    text: "Ένα παλιό κτίριο με ιστορία.",
-                    movie: "rite"
-                }
+                { text: "Ένα παλιό δάσος που δεν έχω ξαναεπισκεφτεί.", movie: "wolfman" },
+                { text: "Ένα εγκαταλελειμμένο μέρος που κανείς δεν έχει εξερευνήσει.", movie: "timeCut" },
+                { text: "Μια άδεια πόλη.", movie: "silence" },
+                { text: "Ένα παλιό κτίριο με ιστορία.", movie: "rite" }
             ]
         },
 
         {
             question: "Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?",
             answers: [
-                {
-                    text: "Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.",
-                    movie: "rite"
-                },
-                {
-                    text: "Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.",
-                    movie: "silence"
-                },
-                {
-                    text: "Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.",
-                    movie: "wolfman"
-                }
+                { text: "Θέλω να μάθω γιατί δεν μπορώ να το χρησιμοποιήσω.", movie: "timeCut" },
+                { text: "Το κρατάω, αλλά δεν το αγγίζω μέχρι να καταλάβω περισσότερα για αυτό.", movie: "rite" },
+                { text: "Το επιστρέφω. Δεν θέλω να μπλέξω πουθενά.", movie: "silence" },
+                { text: "Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.", movie: "wolfman" }
             ]
         },
 
         {
             question: "Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?",
             answers: [
-                {
-                    text: "Ένα ρολόι.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Ένα παλιό κειμήλιο.",
-                    movie: "rite"
-                },
-                {
-                    text: "Ένα ζευγάρι ακουστικά.",
-                    movie: "silence"
-                },
-                {
-                    text: "Ένα φυλαχτό.",
-                    movie: "wolfman"
-                }
+                { text: "Ένα ρολόι.", movie: "timeCut" },
+                { text: "Ένα παλιό κειμήλιο.", movie: "rite" },
+                { text: "Ένα ζευγάρι ακουστικά.", movie: "silence" },
+                { text: "Ένα φυλαχτό.", movie: "wolfman" }
             ]
         },
 
         {
             question: "Θα ήθελες να ξέρεις τι θα συμβεί αύριο?",
             answers: [
-                {
-                    text: "Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.",
-                    movie: "silence"
-                },
-                {
-                    text: "Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.",
-                    movie: "rite"
-                }
+                { text: "Ναι, ειδικά αν μπορούσα να προλάβω κάτι κακό.", movie: "silence" },
+                { text: "Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.", movie: "timeCut" },
+                { text: "Όχι. Θα προτιμούσα να το ζήσω όπως έρθει.", movie: "wolfman" },
+                { text: "Ναι, αλλά μόνο αν μπορούσα να αλλάξω αυτό που θα μάθαινα.", movie: "rite" }
             ]
         },
 
         {
             question: "Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?",
             answers: [
-                {
-                    text: "«Ποιος το άφησε εδώ;»",
-                    movie: "rite"
-                },
-                {
-                    text: "«Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»",
-                    movie: "timeCut"
-                },
-                {
-                    text: "«Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»",
-                    movie: "wolfman"
-                },
-                {
-                    text: "«Καλύτερα να μην ασχοληθώ καν.»",
-                    movie: "silence"
-                }
+                { text: "«Ποιος το άφησε εδώ;»", movie: "rite" },
+                { text: "«Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»", movie: "timeCut" },
+                { text: "«Μήπως υπάρχει κάτι που δεν καταλαβαίνω;»", movie: "wolfman" },
+                { text: "«Καλύτερα να μην ασχοληθώ καν.»", movie: "silence" }
             ]
         },
 
         {
             question: "Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?",
             answers: [
-                {
-                    text: "Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.",
-                    movie: "silence"
-                },
-                {
-                    text: "Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.",
-                    movie: "rite"
-                }
+                { text: "Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.", movie: "timeCut" },
+                { text: "Μια νύχτα όπου πρέπει να ακολουθήσεις πολύ συγκεκριμένους κανόνες.", movie: "silence" },
+                { text: "Μια νύχτα όπου ανακαλύπτεις κάτι για τον εαυτό σου που δεν γνώριζες.", movie: "wolfman" },
+                { text: "Μια νύχτα όπου ένα παλιό μυστήριο ξαναέρχεται στην επιφάνεια.", movie: "rite" }
             ]
         },
 
         {
             question: "Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?",
             answers: [
-                {
-                    text: "Προσπαθώ να ανακαλύψω ποιος είναι.",
-                    movie: "rite"
-                },
-                {
-                    text: "Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.",
-                    movie: "silence"
-                }
+                { text: "Προσπαθώ να ανακαλύψω ποιος είναι.", movie: "rite" },
+                { text: "Ψάχνω τι σχέση μπορεί να έχει με το μέρος όπου τη βρήκα.", movie: "timeCut" },
+                { text: "Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.", movie: "wolfman" },
+                { text: "Προτιμώ να την αφήσω εκεί. Δεν θέλω να μπλέξω σε κάτι που δεν καταλαβαίνω.", movie: "silence" }
             ]
         },
 
         {
             question: "Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?",
             answers: [
-                {
-                    text: "Μαύρη πόρτα με κόκκινο φως.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Καφέ πόρτα με πράσινο φως.",
-                    movie: "silence"
-                },
-                {
-                    text: "Γκρι πόρτα με λευκό φως.",
-                    movie: "rite"
-                },
-                {
-                    text: "Λευκή πόρτα με μωβ φως.",
-                    movie: "timeCut"
-                }
+                { text: "Μαύρη πόρτα με κόκκινο φως.", movie: "wolfman" },
+                { text: "Καφέ πόρτα με πράσινο φως.", movie: "silence" },
+                { text: "Γκρι πόρτα με λευκό φως.", movie: "rite" },
+                { text: "Λευκή πόρτα με μωβ φως.", movie: "timeCut" }
             ]
         },
 
         {
             question: "Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?",
             answers: [
-                {
-                    text: "Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.",
-                    movie: "silence"
-                },
-                {
-                    text: "Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.",
-                    movie: "rite"
-                },
-                {
-                    text: "Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.",
-                    movie: "wolfman"
-                }
+                { text: "Ένα αντικείμενο που θα μπορούσε να στείλει ένα μήνυμα πολύ μακριά για να ζητήσω βοήθεια σε μια δύσκολη συνθήκη.", movie: "silence" },
+                { text: "Ένα αντικείμενο αξίας που θα πίστευα ότι κρύβει μια ιστορία από πίσω.", movie: "rite" },
+                { text: "Ένα αντικείμενο που θα μπορούσε να γυρίσει πίσω τον χρόνο σε μια συγκεκριμένη μέρα.", movie: "timeCut" },
+                { text: "Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.", movie: "wolfman" }
             ]
         },
 
         {
             question: "Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?",
             answers: [
-                {
-                    text: "Θέλω να το δω με τα μάτια μου.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Τον πιστεύω, αλλά είμαι επιφυλακτικός.",
-                    movie: "rite"
-                },
-                {
-                    text: "Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.",
-                    movie: "silence"
-                }
+                { text: "Θέλω να το δω με τα μάτια μου.", movie: "timeCut" },
+                { text: "Τον πιστεύω, αλλά είμαι επιφυλακτικός.", movie: "rite" },
+                { text: "Δεν τον πιστεύω. Αν το θεωρώ αδύνατο, τότε είναι αδύνατο για εμένα.", movie: "wolfman" },
+                { text: "Προτιμώ να μην το ψάξω καθόλου. Ο χρόνος θα δείξει.", movie: "silence" }
             ]
         },
 
         {
             question: "Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?",
             answers: [
-                {
-                    text: "Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.",
-                    movie: "silence"
-                },
-                {
-                    text: "Κάτι που μου θυμίζει ποιος είμαι.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.",
-                    movie: "rite"
-                },
-                {
-                    text: "Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.",
-                    movie: "timeCut"
-                }
+                { text: "Κάτι που μου θυμίζει την οικογένειά μου και το πού μεγάλωσα.", movie: "silence" },
+                { text: "Κάτι που μου θυμίζει ποιος είμαι.", movie: "wolfman" },
+                { text: "Κάτι που θα μπορούσε να βγάλει στην επιφάνεια τον καλύτερό μου εαυτό.", movie: "rite" },
+                { text: "Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.", movie: "timeCut" }
             ]
         },
 
         {
             question: "Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?",
             answers: [
-                {
-                    text: "Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.",
-                    movie: "rite"
-                },
-                {
-                    text: "Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.",
-                    movie: "silence"
-                }
+                { text: "Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.", movie: "rite" },
+                { text: "Κάτι που θα μπορούσε να αλλάξει μια σημαντική απόφαση του παρελθόντος.", movie: "timeCut" },
+                { text: "Κάτι που θα αποκάλυπτε μια άγνωστη πλευρά ενός ανθρώπου.", movie: "wolfman" },
+                { text: "Κάτι που καλύτερα να μην είχε βρεθεί ποτέ.", movie: "silence" }
             ]
         },
 
         {
             question: "Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?",
             answers: [
-                {
-                    text: "Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.",
-                    movie: "rite"
-                },
-                {
-                    text: "Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.",
-                    movie: "timeCut"
-                },
-                {
-                    text: "Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.",
-                    movie: "silence"
-                },
-                {
-                    text: "Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.",
-                    movie: "wolfman"
-                }
+                { text: "Να τον βοηθήσω να βγάλει τον καλύτερο εαυτό του.", movie: "rite" },
+                { text: "Να τον βοηθήσω να ξεπεράσει κάτι που τον κρατάει πίσω.", movie: "timeCut" },
+                { text: "Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.", movie: "silence" },
+                { text: "Να τον βοηθήσω να αντιμετωπίσει αυτό που κρύβει μέσα του.", movie: "wolfman" }
             ]
         },
 
         {
             question: "Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?",
             answers: [
-                {
-                    text: "Να μη βλέπεις.",
-                    movie: "wolfman"
-                },
-                {
-                    text: "Να μην ακούς.",
-                    movie: "rite"
-                },
-                {
-                    text: "Να μην μιλάς.",
-                    movie: "silence"
-                },
-                {
-                    text: "Να μην θυμάσαι.",
-                    movie: "timeCut"
-                }
+                { text: "Να μη βλέπεις.", movie: "wolfman" },
+                { text: "Να μην ακούς.", movie: "rite" },
+                { text: "Να μην μιλάς.", movie: "silence" },
+                { text: "Να μην θυμάσαι.", movie: "timeCut" }
             ]
         }
 
     ];
 
 
-    /*
-     * QUIZ VARIABLES
-     */
     let currentQuestion = 0;
 
     let scores = {
@@ -678,12 +502,10 @@
     let selectedAnswers = [];
 
 
-    /*
-     * START AFTER LIKE
-     */
     function likeAndStart() {
 
-        const likeButton = document.getElementById("like-button");
+        const likeButton =
+            document.getElementById("like-button");
 
         likeButton.innerHTML = "♥";
         likeButton.classList.add("liked");
@@ -694,9 +516,6 @@
     }
 
 
-    /*
-     * START QUIZ
-     */
     function startQuiz() {
 
         currentQuestion = 0;
@@ -718,9 +537,6 @@
     }
 
 
-    /*
-     * SHOW QUESTION
-     */
     function showQuestion() {
 
         const question = questions[currentQuestion];
@@ -736,9 +552,6 @@
 
         answersContainer.innerHTML = "";
 
-        /*
-         * RANDOMIZE ANSWERS
-         */
         const shuffledAnswers =
             [...question.answers].sort(
                 () => Math.random() - 0.5
@@ -755,21 +568,12 @@
 
             button.addEventListener("click", () => {
 
-                /*
-                 * Prevent double click
-                 */
                 if (button.disabled) {
                     return;
                 }
 
-                /*
-                 * Highlight selected answer
-                 */
                 button.classList.add("selected");
 
-                /*
-                 * Disable all answers
-                 */
                 const allButtons =
                     answersContainer.querySelectorAll(
                         ".answer-button"
@@ -779,19 +583,10 @@
                     btn.disabled = true;
                 });
 
-                /*
-                 * Add score
-                 */
                 scores[answer.movie]++;
 
-                /*
-                 * Save answer text
-                 */
                 selectedAnswers.push(answer.text);
 
-                /*
-                 * Next question
-                 */
                 setTimeout(() => {
 
                     currentQuestion++;
@@ -816,17 +611,11 @@
     }
 
 
-    /*
-     * SHOW RESULT
-     */
     function showResult() {
 
         document.getElementById("quiz-section").style.display = "none";
         document.getElementById("result-section").style.display = "block";
 
-        /*
-         * Wolfman is the default in case of a tie.
-         */
         let winningMovie = "wolfman";
 
         Object.keys(scores).forEach(movie => {
@@ -851,54 +640,49 @@
         document.getElementById("result-text").textContent =
             movie.text;
 
-        /*
-         * Send result to Google Sheet
-         */
-        sendResultToGoogleSheet(
-            movie.title
-        );
-
+        sendResultToGoogleSheet(movie.title);
     }
 
 
     /*
-     * SEND RESULT TO GOOGLE SHEET
+     * ΑΠΟΣΤΟΛΗ ΣΤΟ GOOGLE APPS SCRIPT
+     * Χρησιμοποιούμε κανονικό POST form αντί για fetch/no-cors.
      */
     function sendResultToGoogleSheet(result) {
 
-        fetch(
-            GOOGLE_SCRIPT_URL,
-            {
-                method: "POST",
+        const form =
+            document.createElement("form");
 
-                mode: "no-cors",
+        form.method = "POST";
+        form.action = GOOGLE_SCRIPT_URL;
+        form.target = "google-sheet-frame";
 
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
+        const answersInput =
+            document.createElement("input");
 
-                body: JSON.stringify({
-                    answers: selectedAnswers,
-                    result: result
-                })
-            }
-        )
-        .catch(error => {
+        answersInput.type = "hidden";
+        answersInput.name = "answers";
+        answersInput.value =
+            JSON.stringify(selectedAnswers);
 
-            console.error(
-                "Δεν ήταν δυνατή η αποστολή του αποτελέσματος.",
-                error
-            );
+        const resultInput =
+            document.createElement("input");
 
-        });
+        resultInput.type = "hidden";
+        resultInput.name = "result";
+        resultInput.value = result;
 
+        form.appendChild(answersInput);
+        form.appendChild(resultInput);
+
+        document.body.appendChild(form);
+
+        form.submit();
+
+        form.remove();
     }
 
 
-    /*
-     * RESTART
-     */
     function restartQuiz() {
 
         document.getElementById("result-section").style.display = "none";
@@ -922,7 +706,6 @@
         };
 
         selectedAnswers = [];
-
     }
 
 </script>
