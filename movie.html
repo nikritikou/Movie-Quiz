@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="el">
 
@@ -14,8 +13,14 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
             background: #0f0a46;
             color: white;
             font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -44,6 +49,7 @@
             color: white;
         }
 
+
         .intro-text {
             font-size: 20px;
             line-height: 1.7;
@@ -56,47 +62,51 @@
         ========================= */
 
         .phone {
-            width: 100%;
-            max-width: 390px;
-            height: 680px;
+            width: 390px;
+            max-width: 100%;
+            height: 760px;
             margin: 0 auto 50px auto;
-            padding: 10px;
+            padding: 8px;
 
-            background: #111;
+            background: #050505;
 
-            border-radius: 42px;
+            border: 1px solid #2a2a2a;
+            border-radius: 46px;
 
             box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.45),
-                inset 0 0 0 2px #333;
+                0 30px 80px rgba(0, 0, 0, 0.65),
+                0 10px 25px rgba(0, 0, 0, 0.35),
+                inset 0 0 0 2px #181818;
 
             position: relative;
         }
 
 
-        /* Small phone speaker / camera area */
+        /* Dynamic Island */
 
         .phone::before {
             content: "";
+
             position: absolute;
 
-            top: 18px;
+            top: 12px;
             left: 50%;
+
             transform: translateX(-50%);
 
-            width: 90px;
-            height: 22px;
+            width: 112px;
+            height: 30px;
 
-            background: #111;
+            background: #000;
 
             border-radius: 20px;
 
-            z-index: 10;
+            z-index: 20;
         }
 
 
         /* =========================
-           INSTAGRAM CHAT
+           PHONE SCREEN
         ========================= */
 
         .instagram-chat {
@@ -105,23 +115,63 @@
 
             background: #000;
 
-            border-radius: 34px;
+            border-radius: 38px;
 
             overflow: hidden;
 
             display: flex;
             flex-direction: column;
+
+            position: relative;
         }
 
 
         /* =========================
-           CHAT HEADER
+           FAKE STATUS BAR
+        ========================= */
+
+        .status-bar {
+            height: 34px;
+
+            padding: 5px 18px 0 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #000;
+
+            color: white;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 12px;
+
+            flex-shrink: 0;
+        }
+
+
+        .status-left {
+            font-weight: 600;
+        }
+
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           INSTAGRAM HEADER
         ========================= */
 
         .chat-header {
-            height: 72px;
+            height: 70px;
 
-            padding: 0 14px;
+            padding: 0 15px;
 
             display: flex;
             align-items: center;
@@ -140,11 +190,13 @@
             font-size: 38px;
             font-weight: 200;
 
-            margin-right: 12px;
+            margin-right: 10px;
 
             line-height: 1;
 
             color: white;
+
+            cursor: default;
         }
 
 
@@ -161,10 +213,34 @@
 
 
         .profile-photo {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
 
             flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #feda75,
+                    #fa7e1e,
+                    #d62976,
+                    #962fbf,
+                    #4f5bd5
+                );
+
+            padding: 2px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .profile-photo-inner {
+            width: 100%;
+            height: 100%;
 
             border-radius: 50%;
 
@@ -180,6 +256,15 @@
 
             font-size: 17px;
             font-weight: bold;
+
+            border: 1px solid #000;
+        }
+
+
+        .profile-text {
+            text-align: left;
+
+            min-width: 0;
         }
 
 
@@ -188,12 +273,23 @@
 
             font-family: Arial, Helvetica, sans-serif;
 
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+
+        .profile-status {
+            color: #a8a8a8;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 11px;
+
+            margin-top: 3px;
         }
 
 
@@ -211,6 +307,16 @@
         }
 
 
+        .header-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 23px;
+            height: 23px;
+        }
+
+
         /* =========================
            CHAT BODY
         ========================= */
@@ -218,7 +324,7 @@
         .chat-body {
             flex: 1;
 
-            padding: 25px 14px;
+            padding: 25px 15px 28px;
 
             display: flex;
             flex-direction: column;
@@ -229,6 +335,17 @@
             background: #000;
 
             overflow: hidden;
+        }
+
+
+        .date-label {
+            color: #777;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
         }
 
 
@@ -246,6 +363,9 @@
             max-width: 78%;
 
             word-wrap: break-word;
+
+            box-shadow:
+                0 1px 1px rgba(255, 255, 255, 0.03);
         }
 
 
@@ -280,7 +400,8 @@
 
             transition:
                 transform 0.25s ease,
-                background 0.25s ease;
+                background 0.25s ease,
+                box-shadow 0.25s ease;
 
             user-select: none;
         }
@@ -302,6 +423,94 @@
             color: white;
 
             transform: scale(1.05);
+
+            box-shadow:
+                0 0 20px rgba(255, 0, 60, 0.18);
+        }
+
+
+        /* =========================
+           CHAT FOOTER
+        ========================= */
+
+        .chat-footer {
+            height: 62px;
+
+            padding: 9px 12px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            border-top: 1px solid #262626;
+
+            background: #000;
+
+            flex-shrink: 0;
+        }
+
+
+        .footer-camera {
+            font-size: 22px;
+        }
+
+
+        .message-input {
+            flex: 1;
+
+            height: 38px;
+
+            border: 1px solid #383838;
+
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 14px;
+
+            color: #8e8e8e;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 13px;
+
+            text-align: left;
+        }
+
+
+        .footer-icon {
+            font-size: 20px;
+
+            color: white;
+
+            line-height: 1;
+        }
+
+
+        /* =========================
+           HOME INDICATOR
+        ========================= */
+
+        .home-indicator {
+            position: absolute;
+
+            bottom: 8px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 105px;
+            height: 4px;
+
+            border-radius: 5px;
+
+            background: white;
+
+            opacity: 0.9;
+
+            z-index: 30;
         }
 
 
@@ -521,52 +730,63 @@
 
 
             .phone {
-                max-width: 340px;
+                width: 340px;
 
-                height: 600px;
+                height: 640px;
 
-                padding: 8px;
+                padding: 7px;
 
-                border-radius: 36px;
+                border-radius: 39px;
             }
 
 
             .instagram-chat {
-                border-radius: 29px;
+                border-radius: 32px;
+            }
+
+
+            .status-bar {
+                height: 30px;
+
+                padding-left: 17px;
+                padding-right: 17px;
             }
 
 
             .chat-header {
-                height: 65px;
+                height: 67px;
 
-                padding: 0 12px;
+                padding: 0 11px;
             }
 
 
             .back-arrow {
                 font-size: 34px;
 
-                margin-right: 9px;
+                margin-right: 8px;
             }
 
 
             .profile-photo {
-                width: 35px;
-                height: 35px;
-
-                font-size: 16px;
+                width: 36px;
+                height: 36px;
             }
 
 
             .profile-name {
-                font-size: 15px;
+                font-size: 14px;
+            }
+
+
+            .profile-status {
+                font-size: 10px;
             }
 
 
             .header-icons {
-                gap: 9px;
+                gap: 8px;
 
-                font-size: 19px;
+                font-size: 18px;
             }
 
 
@@ -574,6 +794,18 @@
                 font-size: 15px;
 
                 padding: 11px 15px;
+            }
+
+
+            .chat-footer {
+                height: 58px;
+            }
+
+
+            .message-input {
+                height: 35px;
+
+                font-size: 12px;
             }
 
 
@@ -597,6 +829,29 @@
             .result-text {
                 font-size: 17px;
             }
+        }
+
+
+        @media (max-width: 360px) {
+
+            .phone {
+                width: 315px;
+
+                height: 600px;
+            }
+
+
+            .header-icons {
+                gap: 5px;
+
+                font-size: 17px;
+            }
+
+
+            .profile-name {
+                font-size: 13px;
+            }
+
         }
 
     </style>
@@ -655,6 +910,23 @@
             <div class="instagram-chat">
 
 
+                <!-- STATUS BAR -->
+
+                <div class="status-bar">
+
+                    <div class="status-left">
+                        9:41
+                    </div>
+
+                    <div class="status-right">
+                        <span>●●●</span>
+                        <span>Wi-Fi</span>
+                        <span>▰</span>
+                    </div>
+
+                </div>
+
+
                 <!-- HEADER -->
 
                 <div class="chat-header">
@@ -669,12 +941,24 @@
 
 
                         <div class="profile-photo">
-                            Ν
+
+                            <div class="profile-photo-inner">
+                                Ν
+                            </div>
+
                         </div>
 
 
-                        <div class="profile-name">
-                            Νίκη Κρητικού
+                        <div class="profile-text">
+
+                            <div class="profile-name">
+                                Νίκη Κρητικού
+                            </div>
+
+                            <div class="profile-status">
+                                Active now
+                            </div>
+
                         </div>
 
 
@@ -683,11 +967,17 @@
 
                     <div class="header-icons">
 
-                        <span>⌕</span>
+                        <span class="header-icon">
+                            ⌕
+                        </span>
 
-                        <span>☎</span>
+                        <span class="header-icon">
+                            ☎
+                        </span>
 
-                        <span>▣</span>
+                        <span class="header-icon">
+                            ▣
+                        </span>
 
                     </div>
 
@@ -698,6 +988,11 @@
                 <!-- MESSAGES -->
 
                 <div class="chat-body">
+
+
+                    <div class="date-label">
+                        Today
+                    </div>
 
 
                     <div class="chat-message user">
@@ -715,6 +1010,40 @@
 
 
                 </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="chat-footer">
+
+                    <div class="footer-camera">
+                        ◉
+                    </div>
+
+
+                    <div class="message-input">
+                        Message...
+                    </div>
+
+
+                    <div class="footer-icon">
+                        🎙
+                    </div>
+
+
+                    <div class="footer-icon">
+                        🖼
+                    </div>
+
+
+                    <div class="footer-icon">
+                        ♡
+                    </div>
+
+                </div>
+
+
+                <div class="home-indicator"></div>
 
 
             </div>
@@ -799,10 +1128,7 @@
 </div>
 
 
-<!--
-    Κρυφό iframe για την αποστολή
-    στο Google Apps Script
--->
+<!-- Google Sheets iframe -->
 
 <iframe
     name="google-sheet-frame"
@@ -826,7 +1152,6 @@
     ========================== */
 
     const movies = {
-
 
         wolfman: {
 
@@ -891,7 +1216,6 @@
     ========================== */
 
     const questions = [
-
 
         {
             question:
@@ -1499,7 +1823,6 @@
                 "click",
                 () => {
 
-
                     if (button.disabled) {
                         return;
                     }
@@ -1755,4 +2078,3 @@
 </body>
 
 </html>
-```
