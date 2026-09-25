@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Απαντήσεις Quiz για Movie Date</title>
+
+<style>
+
+/* =========================================
+   BASIC
+========================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #151218;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+}
+
+
+/* =========================================
+   BOOK
+========================================= */
+
+.book {
+    position: relative;
+
+    width: min(90vw, 430px);
+    height: min(86vh, 650px);
+
+    perspective: 1800px;
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+.cover {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 100;
+
+    background:
+        linear-gradient(
+            135deg,
+            #34251f 0%,
+            #241814 45%,
+            #120e0c 100%
+        );
+
+    border-radius:
+        5px
+        12px
+        12px
+        5px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.55),
+        inset 7px 0 0 rgba(255,255,255,0.04),
+        inset -4px 0 0 rgba(0,0,0,0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform-origin: left center;
+
+    cursor: grab;
+
+    touch-action: none;
+
+    user-select: none;
+}
+
+.cover:active {
+    cursor: grabbing;
+}
+
+.cover::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 12px;
+    bottom: 12px;
+    left: 14px;
+
+    width: 3px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    border-radius: 3px;
+}
+
+
+.cover-content {
+
+    text-align: center;
+
+    color: #eee7df;
+
+    padding: 35px;
+}
+
+.cover-small {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    opacity: 0.65;
+
+    margin-bottom: 28px;
+}
+
+.cover-title {
+
+    font-size:
+        clamp(34px, 9vw, 50px);
+
+    line-height: 1.08;
+
+    font-weight: normal;
+
+    letter-spacing: 1px;
+}
+
+.cover-line {
+
+    width: 80px;
+
+    height: 1px;
+
+    background: #9b897b;
+
+    margin: 30px auto;
+}
+
+.cover-subtitle {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   PAGES CONTAINER
+========================================= */
+
+.pages {
+
+    position: absolute;
+
+    inset: 0;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ddd6ca 0%,
+            #f7f3eb 7%,
+            #fffdf8 50%,
+            #eee8dd 100%
+        );
+
+    border-radius:
+        5px
+        12px
+        12px
+        5px;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.35),
+        inset 8px 0 12px rgba(0,0,0,0.06);
+
+    transform-origin: left center;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    cursor: grab;
+
+    touch-action: none;
+
+    user-select: none;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.page:active {
+    cursor: grabbing;
+}
+
+
+/* =========================================
+   PAPER TEXTURE
+========================================= */
+
+.page::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.07;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.08) 0px,
+            rgba(0,0,0,0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+
+/* =========================================
+   PAGE NUMBER
+========================================= */
+
+.page-number {
+
+    position: absolute;
+
+    top: 22px;
+    right: 25px;
+
+    z-index: 5;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    color: #888;
+}
+
+
+/* =========================================
+   QUESTION
+========================================= */
+
+.question {
+
+    position: relative;
+
+    z-index: 3;
+
+    margin:
+        65px
+        30px
+        0;
+
+    color: #111;
+
+    font-size:
+        clamp(20px, 5vw, 27px);
+
+    line-height: 1.38;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   ANSWER AREA
+========================================= */
+
+.answer-box {
+
+    position: relative;
+
+    z-index: 3;
+
+    margin:
+        35px
+        30px
+        0;
+
+    padding:
+        20px
+        18px;
+
+    background:
+        rgba(255,255,255,0.58);
+
+    border-radius: 5px;
+
+    border-left: 7px solid;
+}
+
+
+/* =========================================
+   ANSWER LABEL
+========================================= */
+
+.answer-label {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    color: #777;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   ANSWER
+========================================= */
+
+.answer {
+
+    color: #111;
+
+    font-size:
+        clamp(18px, 4.5vw, 23px);
+
+    line-height: 1.5;
+}
+
+
+/*
+   ΚΙΤΡΙΝΟΣ ΜΑΡΚΑΔΟΡΟΣ
+*/
+
+.highlight {
+
+    position: relative;
+
+    display: inline;
+
+    background:
+        linear-gradient(
+            transparent 58%,
+            rgba(250, 224, 54, 0.88) 58%,
+            rgba(250, 224, 54, 0.88) 91%,
+            transparent 91%
+        );
+
+    padding:
+        0 2px;
+
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+
+/* =========================================
+   MOVIE
+========================================= */
+
+.movie {
+
+    margin-top: 18px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   MOVIE COLORS
+========================================= */
+
+/*
+   The Wolfman
+   Μπορντώ
+*/
+
+.wolfman {
+
+    border-color: #7a2638;
+}
+
+.wolfman .movie {
+
+    color: #7a2638;
+}
+
+
+/*
+   Time Cut
+   Σκούρο μωβ
+*/
+
+.timecut {
+
+    border-color: #4b285f;
+}
+
+.timecut .movie {
+
+    color: #4b285f;
+}
+
+
+/*
+   The Silence
+   Σκούρο πράσινο
+*/
+
+.silence {
+
+    border-color: #244d35;
+}
+
+.silence .movie {
+
+    color: #244d35;
+}
+
+
+/*
+   The Rite
+   Σκούρο γκρι
+*/
+
+.rite {
+
+    border-color: #414141;
+}
+
+.rite .movie {
+
+    color: #414141;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.page-footer {
+
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 22px;
+
+    z-index: 3;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    color: #999;
+}
+
+
+/* =========================================
+   FLIP ANIMATION
+========================================= */
+
+.page,
+.cover {
+
+    transition:
+        transform
+        0.65s
+        cubic-bezier(.2,.75,.25,1);
+}
+
+
+/* =========================================
+   HINT
+========================================= */
+
+.hint {
+
+    position: fixed;
+
+    left: 50%;
+    bottom: 18px;
+
+    transform:
+        translateX(-50%);
+
+    color:
+        rgba(255,255,255,0.48);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    transition:
+        opacity
+        0.5s;
+}
+
+.hint.hidden {
+    opacity: 0;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    .book {
+
+        width: 90vw;
+
+        height: 82vh;
+    }
+
+    .question {
+
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+
+    .answer-box {
+
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="book">
+
+
+    <!-- =====================================
+         COVER
+    ====================================== -->
+
+    <div
+        class="cover"
+        id="cover"
+    >
+
+        <div class="cover-content">
+
+            <div class="cover-small">
+                Movie Date
+            </div>
+
+            <div class="cover-title">
+                Απαντήσεις<br>
+                Quiz
+            </div>
+
+            <div class="cover-line"></div>
+
+            <div class="cover-subtitle">
+                οι επιλογές σου
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         PAGES
+    ====================================== -->
+
+    <div
+        class="pages"
+        id="pages"
+    >
+
+
+        <!-- ================================
+             01
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="1"
+        >
+
+            <div class="page-number">
+                01
+            </div>
+
+            <div class="question">
+                Ποιο μέρος θα διάλεγες να επισκεφτείς το βράδυ?
+            </div>
+
+            <div class="answer-box rite">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Ένα παλιό κτίριο με ιστορία.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Rite
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             02
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="2"
+        >
+
+            <div class="page-number">
+                02
+            </div>
+
+            <div class="question">
+                Κάποιος σου δίνει ένα όπλο και σου λέει «μην το χρησιμοποιήσεις ποτέ». Τι κάνεις?
+            </div>
+
+            <div class="answer-box wolfman">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Θα το χρησιμοποιούσα μόνο αν δεν υπήρχε άλλη επιλογή.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Wolfman
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             03
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="3"
+        >
+
+            <div class="page-number">
+                03
+            </div>
+
+            <div class="question">
+                Ποιο αντικείμενο θα κρατούσες ανάμεσα στα παρακάτω?
+            </div>
+
+            <div class="answer-box wolfman">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Ένα φυλαχτό.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Wolfman
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             04
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="4"
+        >
+
+            <div class="page-number">
+                04
+            </div>
+
+            <div class="question">
+                Θα ήθελες να ξέρεις τι θα συμβεί αύριο?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Θα το ήθελα μόνο αν αφορούσε κάποιον που αγαπώ.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             05
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="5"
+        >
+
+            <div class="page-number">
+                05
+            </div>
+
+            <div class="question">
+                Ανοίγεις ένα συρτάρι και βρίσκεις κάτι που δεν θυμάσαι να έχεις βάλει ποτέ εκεί. Τι σκέφτεσαι πρώτο?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        «Να προσπαθήσω να σκεφτώ τι μπορεί να μου θυμίζει»
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             06
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="6"
+        >
+
+            <div class="page-number">
+                06
+            </div>
+
+            <div class="question">
+                Ποια από αυτές τις νύχτες θα σου φαινόταν πιο ενδιαφέρουσα?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Μια νύχτα που ξεκινά φυσιολογικά και καταλήγει εντελώς διαφορετικά.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             07
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="7"
+        >
+
+            <div class="page-number">
+                07
+            </div>
+
+            <div class="question">
+                Βρίσκεις μια παλιά φωτογραφία με έναν άνθρωπο που δεν αναγνωρίζεις. Τι κάνεις?
+            </div>
+
+            <div class="answer-box wolfman">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Την κρατάω. Κάτι μου λέει ότι θα τη χρειαστώ.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Wolfman
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             08
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="8"
+        >
+
+            <div class="page-number">
+                08
+            </div>
+
+            <div class="question">
+                Βλέπεις τέσσερις πόρτες. Η καθεμία έχει διαφορετικό χρώμα και διαφορετικό φωτισμό πάνω της. Ποια θα διάλεγες?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Λευκή πόρτα με μωβ φως.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             09
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="9"
+        >
+
+            <div class="page-number">
+                09
+            </div>
+
+            <div class="question">
+                Είσαι στη μέση του πουθενά και δυσκολεύεσαι να κουβαλήσεις πράγματα. Τι από τα παρακάτω θα σε έκανε να θες να κρατήσεις ένα αντικείμενο που βρήκες?
+            </div>
+
+            <div class="answer-box wolfman">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Ένα αντικείμενο που θα είχα δικαίωμα να χρησιμοποιήσω μόνο μία φορά, αλλά θα με έσωζε από μια κατάσταση.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Wolfman
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             10
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="10"
+        >
+
+            <div class="page-number">
+                10
+            </div>
+
+            <div class="question">
+                Κάποιος σου λέει ότι έχει δει κάτι που εσύ θεωρείς αδύνατο. Πώς αντιδράς?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Θέλω να το δω με τα μάτια μου.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             11
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="11"
+        >
+
+            <div class="page-number">
+                11
+            </div>
+
+            <div class="question">
+                Αν μπορούσες να κρατήσεις μόνο ένα πράγμα από το παρελθόν σου, τι θα ήταν?
+            </div>
+
+            <div class="answer-box timecut">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Κάτι που θα μπορούσε κάποτε να μου αποκαλύψει μια αλήθεια.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    Time Cut
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             12
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="12"
+        >
+
+            <div class="page-number">
+                12
+            </div>
+
+            <div class="question">
+                Βρίσκεις ένα παλιό μπαούλο. Τι θα ήθελες να υπάρχει μέσα?
+            </div>
+
+            <div class="answer-box rite">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Κάτι που θα εξηγούσε ένα μυστήριο από το παρελθόν.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Rite
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             13
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="13"
+        >
+
+            <div class="page-number">
+                13
+            </div>
+
+            <div class="question">
+                Αν γνώριζες κάποιον που περνάει μια πολύ δύσκολη περίοδο, τι θα ήθελες περισσότερο να κάνεις για εκείνον?
+            </div>
+
+            <div class="answer-box silence">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Να μείνω δίπλα του μέχρι να νιώσει ασφαλής.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Silence
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             14
+        ================================= -->
+
+        <div
+            class="page"
+            data-page="14"
+        >
+
+            <div class="page-number">
+                14
+            </div>
+
+            <div class="question">
+                Αν έπρεπε να στερηθείς για μία μέρα μία από τις παρακάτω αισθήσεις ή ικανότητες, ποια θα επέλεγες?
+            </div>
+
+            <div class="answer-box silence">
+
+                <div class="answer-label">
+                    Απάντηση
+                </div>
+
+                <div class="answer">
+                    <span class="highlight">
+                        Να μην μιλάς.
+                    </span>
+                </div>
+
+                <div class="movie">
+                    The Silence
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                Movie Date
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div
+    class="hint"
+    id="hint"
+>
+    Σύρε τη σελίδα προς τα αριστερά για να ξεφυλλίσεις
+</div>
+
+
+<script>
+
+/* =========================================
+   BOOK
+========================================= */
+
+const cover =
+    document.getElementById("cover");
+
+const pages =
+    Array.from(
+        document.querySelectorAll(".page")
+    );
+
+const hint =
+    document.getElementById("hint");
+
+
+/*
+   -1 = εξώφυλλο
+    0 = σελίδα 1
+    1 = σελίδα 2
+   ...
+*/
+
+let currentPage = -1;
+
+let dragging = false;
+
+let startX = 0;
+
+let currentX = 0;
+
+let activeElement = null;
+
+
+/* =========================================
+   INITIAL STATE
+========================================= */
+
+function renderPages() {
+
+    pages.forEach(
+        (page, index) => {
+
+            if (index <= currentPage) {
+
+                page.style.zIndex =
+                    index + 1;
+
+                page.style.transform =
+                    "rotateY(-180deg)";
+
+            } else {
+
+                page.style.zIndex =
+                    pages.length - index;
+
+                page.style.transform =
+                    "rotateY(0deg)";
+            }
+        }
+    );
+
+
+    if (currentPage < 0) {
+
+        cover.style.zIndex = 100;
+
+    } else {
+
+        cover.style.zIndex = 0;
+    }
+}
+
+renderPages();
+
+
+/* =========================================
+   START DRAG
+========================================= */
+
+function startDrag(
+    element,
+    event
+) {
+
+    dragging = true;
+
+    activeElement =
+        element;
+
+    startX =
+        event.clientX;
+
+    currentX =
+        startX;
+
+    element.setPointerCapture(
+        event.pointerId
+    );
+
+    element.style.transition =
+        "none";
+}
+
+
+/* =========================================
+   DRAG
+========================================= */
+
+function moveDrag(event) {
+
+    if (
+        !dragging ||
+        !activeElement
+    ) {
+        return;
+    }
+
+
+    currentX =
+        event.clientX;
+
+
+    const delta =
+        currentX - startX;
+
+
+    const width =
+        activeElement.offsetWidth;
+
+
+    /*
+       ΕΞΩΦΥΛΛΟ
+    */
+
+    if (
+        activeElement === cover
+    ) {
+
+        const progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    -delta /
+                    (width * 0.9)
+                )
+            );
+
+
+        const angle =
+            -180 * progress;
+
+
+        activeElement.style.transform =
+            `rotateY(${angle}deg)`;
+
+        return;
+    }
+
+
+    /*
+       ΣΕΛΙΔΑ
+    */
+
+    if (delta < 0) {
+
+        const progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    -delta /
+                    (width * 0.9)
+                )
+            );
+
+
+        const angle =
+            -180 * progress;
+
+
+        activeElement.style.transform =
+            `rotateY(${angle}deg)`;
+
+    } else {
+
+        /*
+           Δεν επιτρέπουμε να
+           πάει πάνω από 0°
+        */
+
+        activeElement.style.transform =
+            "rotateY(0deg)";
+    }
+}
+
+
+/* =========================================
+   END DRAG
+========================================= */
+
+function endDrag(event) {
+
+    if (
+        !dragging ||
+        !activeElement
+    ) {
+        return;
+    }
+
+
+    const delta =
+        currentX - startX;
+
+
+    const width =
+        activeElement.offsetWidth;
+
+
+    const threshold =
+        width * 0.22;
+
+
+    /* =====================================
+       COVER
+    ===================================== */
+
+    if (
+        activeElement === cover
+    ) {
+
+        if (
+            delta < -threshold
+        ) {
+
+            cover.style.transition =
+                "transform 0.65s cubic-bezier(.2,.75,.25,1)";
+
+            cover.style.transform =
+                "rotateY(-180deg)";
+
+
+            currentPage = 0;
+
+
+            setTimeout(
+                () => {
+
+                    cover.style.zIndex =
+                        0;
+
+                    renderPages();
+
+                },
+                650
+            );
+
+
+            hint.classList.add(
+                "hidden"
+            );
+
+        } else {
+
+            cover.style.transition =
+                "transform 0.35s ease";
+
+            cover.style.transform =
+                "rotateY(0deg)";
+        }
+
+
+        dragging = false;
+
+        activeElement = null;
+
+        return;
+    }
+
+
+    /* =====================================
+       NEXT PAGE
+    ===================================== */
+
+    if (
+        delta < -threshold &&
+        currentPage <
+        pages.length - 1
+    ) {
+
+        activeElement.style.transition =
+            "transform 0.65s cubic-bezier(.2,.75,.25,1)";
+
+        activeElement.style.transform =
+            "rotateY(-180deg)";
+
+
+        currentPage++;
+
+
+        setTimeout(
+            () => {
+
+                renderPages();
+
+            },
+            650
+        );
+    }
+
+
+    /* =====================================
+       PREVIOUS PAGE
+    ===================================== */
+
+    else if (
+        delta > threshold &&
+        currentPage > 0
+    ) {
+
+        /*
+           Γυρίζουμε στην προηγούμενη
+           σελίδα.
+        */
+
+        currentPage--;
+
+
+        const previousPage =
+            pages[currentPage];
+
+
+        previousPage.style.zIndex =
+            300;
+
+
+        previousPage.style.transition =
+            "none";
+
+
+        previousPage.style.transform =
+            "rotateY(-180deg)";
+
+
+        requestAnimationFrame(
+            () => {
+
+                previousPage.style.transition =
+                    "transform 0.65s cubic-bezier(.2,.75,.25,1)";
+
+                previousPage.style.transform =
+                    "rotateY(0deg)";
+            }
+        );
+    }
+
+
+    /* =====================================
+       CANCELLED SWIPE
+    ===================================== */
+
+    else {
+
+        activeElement.style.transition =
+            "transform 0.35s ease";
+
+        activeElement.style.transform =
+            "rotateY(0deg)";
+    }
+
+
+    dragging = false;
+
+    activeElement = null;
+}
+
+
+/* =========================================
+   COVER EVENTS
+========================================= */
+
+cover.addEventListener(
+    "pointerdown",
+    event => {
+
+        startDrag(
+            cover,
+            event
+        );
+    }
+);
+
+cover.addEventListener(
+    "pointermove",
+    moveDrag
+);
+
+cover.addEventListener(
+    "pointerup",
+    endDrag
+);
+
+cover.addEventListener(
+    "pointercancel",
+    endDrag
+);
+
+
+/* =========================================
+   PAGE EVENTS
+========================================= */
+
+pages.forEach(
+    page => {
+
+        page.addEventListener(
+            "pointerdown",
+            event => {
+
+                const index =
+                    Number(
+                        page.dataset.page
+                    ) - 1;
+
+
+                /*
+                   Επιτρέπουμε drag μόνο
+                   στην τρέχουσα σελίδα.
+                */
+
+                if (
+                    index !==
+                    currentPage
+                ) {
+                    return;
+                }
+
+
+                startDrag(
+                    page,
+                    event
+                );
+            }
+        );
+
+
+        page.addEventListener(
+            "pointermove",
+            moveDrag
+        );
+
+
+        page.addEventListener(
+            "pointerup",
+            endDrag
+        );
+
+
+        page.addEventListener(
+            "pointercancel",
+            endDrag
+        );
+    }
+);
+
+
+/* =========================================
+   PREVENT NORMAL DRAGGING
+========================================= */
+
+document.addEventListener(
+    "dragstart",
+    event => {
+
+        event.preventDefault();
+    }
+);
+
+</script>
+
+</body>
+</html>
