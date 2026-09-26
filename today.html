@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Today</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+body {
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #6b472f 0%,
+            #4b2f20 45%,
+            #281810 100%
+        );
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+}
+
+
+/* =========================================================
+   DESK
+========================================================= */
+
+.desk {
+
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.12),
+            transparent 20%,
+            transparent 80%,
+            rgba(0,0,0,0.15)
+        ),
+
+        repeating-linear-gradient(
+            90deg,
+            #543622 0px,
+            #5d3b25 70px,
+            #4c301f 140px,
+            #5a3823 210px
+        );
+
+}
+
+
+/* =========================================================
+   DESK SHADOW
+========================================================= */
+
+.desk::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0,0,0,0.35) 100%
+        );
+
+}
+
+
+/* =========================================================
+   NOTEBOOK
+========================================================= */
+
+.notebook {
+
+    position: absolute;
+
+    width: min(76vw, 700px);
+    height: min(72vh, 720px);
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-2deg);
+
+    background: #eee5d2;
+
+    border-radius: 5px;
+
+    box-shadow:
+
+        0 35px 45px rgba(0,0,0,0.45),
+
+        0 8px 15px rgba(0,0,0,0.3),
+
+        inset 0 0 0 1px
+        rgba(90,60,35,0.35);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   NOTEBOOK COVER
+========================================================= */
+
+.notebook::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.28),
+            transparent 30%,
+            rgba(0,0,0,0.04)
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   PAPER
+========================================================= */
+
+.paper {
+
+    position: absolute;
+
+    inset: 20px 18px 18px 28px;
+
+    padding:
+        55px
+        45px
+        45px
+        55px;
+
+    background:
+
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 31px,
+            rgba(110,100,85,0.13) 32px
+        ),
+
+        #fffdf7;
+
+    box-shadow:
+
+        inset 0 0 30px
+        rgba(90,70,40,0.08);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   PAPER LEFT LINE
+========================================================= */
+
+.paper::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 42px;
+
+    top: 0;
+    bottom: 0;
+
+    width: 1px;
+
+    background:
+        rgba(170,80,80,0.22);
+
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.handwriting {
+
+    position: relative;
+
+    z-index: 3;
+
+    margin: 0;
+
+    color: #20201f;
+
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        "Lucida Handwriting",
+        "URW Chancery L",
+        cursive;
+
+    font-size: clamp(
+        17px,
+        2.1vw,
+        25px
+    );
+
+    line-height: 1.62;
+
+    letter-spacing: 0.15px;
+
+    word-spacing: 2px;
+
+    text-align: left;
+
+    white-space: pre-wrap;
+
+}
+
+
+/* =========================================================
+   PEN
+========================================================= */
+
+.pen {
+
+    position: absolute;
+
+    z-index: 10;
+
+    width: 210px;
+    height: 24px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform-origin: 12px 50%;
+
+    transform:
+        translate(
+            0,
+            0
+        )
+        rotate(-28deg);
+
+    transition:
+        opacity 1.8s ease;
+
+}
+
+
+/* =========================================================
+   PEN BODY
+========================================================= */
+
+.pen-body {
+
+    position: absolute;
+
+    left: 15px;
+    top: 7px;
+
+    width: 165px;
+    height: 10px;
+
+    border-radius: 8px;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            #d6d6d6,
+            #888,
+            #dedede
+        );
+
+    box-shadow:
+
+        0 2px 4px
+        rgba(0,0,0,0.35);
+
+}
+
+
+/* =========================================================
+   PEN GOLD PART
+========================================================= */
+
+.pen-gold {
+
+    position: absolute;
+
+    left: 35px;
+    top: 5px;
+
+    width: 7px;
+    height: 14px;
+
+    background: #c9a44c;
+
+    border-radius: 3px;
+
+}
+
+
+/* =========================================================
+   PEN TIP
+========================================================= */
+
+.pen-tip {
+
+    position: absolute;
+
+    left: 0;
+    top: 4px;
+
+    width: 25px;
+    height: 16px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #777 0%,
+            #ddd 45%,
+            #555 100%
+        );
+
+    clip-path:
+        polygon(
+            100% 50%,
+            20% 0%,
+            0% 50%,
+            20% 100%
+        );
+
+}
+
+
+/* =========================================================
+   PEN END
+========================================================= */
+
+.pen-end {
+
+    position: absolute;
+
+    right: 0;
+    top: 5px;
+
+    width: 22px;
+    height: 14px;
+
+    border-radius: 0 8px 8px 0;
+
+    background: #777;
+
+}
+
+
+/* =========================================================
+   WRITING CURSOR
+========================================================= */
+
+.caret {
+
+    position: absolute;
+
+    z-index: 8;
+
+    width: 2px;
+
+    height: 27px;
+
+    background: #222;
+
+    opacity: 0;
+
+    animation:
+        blink 0.8s infinite;
+
+}
+
+
+@keyframes blink {
+
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+.start-screen {
+
+    position: absolute;
+
+    z-index: 30;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    background:
+        rgba(28,17,11,0.72);
+
+    backdrop-filter:
+        blur(3px);
+
+    transition:
+        opacity 1.5s ease;
+
+}
+
+
+.start-screen.hidden {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.start-button {
+
+    border: 1px solid
+        rgba(238,205,133,0.75);
+
+    background:
+        rgba(35,20,12,0.85);
+
+    color: #ead49d;
+
+    padding:
+        13px
+        28px;
+
+    border-radius: 4px;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 15px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.35);
+
+}
+
+
+.start-button:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .notebook {
+
+        width: 91vw;
+        height: 82vh;
+
+        transform:
+            translate(-50%, -50%)
+            rotate(-1.5deg);
+
+    }
+
+
+    .paper {
+
+        inset:
+            14px
+            12px
+            12px
+            18px;
+
+        padding:
+            42px
+            25px
+            30px
+            38px;
+
+    }
+
+
+    .paper::before {
+
+        left: 29px;
+
+    }
+
+
+    .handwriting {
+
+        font-size: 17px;
+
+        line-height: 1.65;
+
+    }
+
+
+    .pen {
+
+        width: 150px;
+
+    }
+
+
+    .pen-body {
+
+        width: 115px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .paper {
+
+        padding:
+            35px
+            18px
+            25px
+            32px;
+
+    }
+
+    .handwriting {
+
+        font-size: 15px;
+
+        line-height: 1.62;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="desk">
+
+
+    <!-- =====================================================
+         NOTEBOOK
+    ====================================================== -->
+
+    <div class="notebook">
+
+
+        <!-- =================================================
+             PAPER
+        ================================================== -->
+
+        <div class="paper">
+
+            <p
+                id="handwriting"
+                class="handwriting"
+            ></p>
+
+            <div
+                id="caret"
+                class="caret"
+            ></div>
+
+        </div>
+
+
+        <!-- =================================================
+             PEN
+        ================================================== -->
+
+        <div
+            id="pen"
+            class="pen"
+        >
+
+            <div class="pen-tip"></div>
+
+            <div class="pen-gold"></div>
+
+            <div class="pen-body"></div>
+
+            <div class="pen-end"></div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         START SCREEN
+    ====================================================== -->
+
+    <div
+        id="startScreen"
+        class="start-screen"
+    >
+
+        <button
+            id="startButton"
+            class="start-button"
+        >
+            Άνοιξε το τετράδιο
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+const text = `Σήμερα δεν είμαι σε ένα καλό mood, κάτι το οποίο συμβαίνει συχνά τώρα τελευταία. Προσπαθώ να το λύσω μέσα μου μόνη μου και επιτέλους να ανακάμψω κάποια στιγμή. Προς ώρας θα πω πως θα εκφραστώ κάπως μέσα από αυτές τις δύο ταινίες και ιδίως μέσα από τη μια που είναι η αγαπημένη μου στο είδος της. Καμία δεν έχει καταφέρει να την ξεπεράσει.
+
+Είναι πολύ σημαντική ταινία για εμένα και ενδεχομένως να μπορέσεις να καταλάβεις κομμάτια μου μέσα από εκείνη καθώς κάποτε με στιγμάτισε.
+
+Αυτά για την ώρα … ζητάω προκαταβολικά συγγνώμη για τα σημερινά μου μούτρα και τα λέμε σε λίγο από κοντά`;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+const handwriting =
+    document.getElementById(
+        "handwriting"
+    );
+
+const pen =
+    document.getElementById(
+        "pen"
+    );
+
+const caret =
+    document.getElementById(
+        "caret"
+    );
+
+
+/* =========================================================
+   TYPEWRITER
+========================================================= */
+
+let index = 0;
+
+
+/* =========================================================
+   FIND CARET POSITION
+========================================================= */
+
+function updateCaret() {
+
+    /*
+        The caret follows the end of the
+        text approximately by measuring
+        the rendered text block.
+    */
+
+    const range =
+        document.createRange();
+
+    const textNode =
+        handwriting.firstChild;
+
+    if (!textNode) {
+        return;
+    }
+
+    try {
+
+        range.setStart(
+            textNode,
+            textNode.length
+        );
+
+        range.setEnd(
+            textNode,
+            textNode.length
+        );
+
+        const rect =
+            range.getBoundingClientRect();
+
+        const paperRect =
+            document
+                .querySelector(".paper")
+                .getBoundingClientRect();
+
+        caret.style.left =
+            (
+                rect.left -
+                paperRect.left
+            ) + "px";
+
+        caret.style.top =
+            (
+                rect.top -
+                paperRect.top
+            ) + "px";
+
+    } catch (error) {
+
+        /*
+            Nothing needed here.
+        */
+
+    }
+
+}
+
+
+/* =========================================================
+   MOVE PEN
+========================================================= */
+
+function movePen() {
+
+    const range =
+        document.createRange();
+
+    const textNode =
+        handwriting.firstChild;
+
+    if (!textNode) {
+        return;
+    }
+
+    try {
+
+        range.setStart(
+            textNode,
+            Math.max(
+                0,
+                textNode.length - 1
+            )
+        );
+
+        range.setEnd(
+            textNode,
+            textNode.length
+        );
+
+        const rect =
+            range.getBoundingClientRect();
+
+        const paper =
+            document.querySelector(
+                ".paper"
+            );
+
+        const paperRect =
+            paper.getBoundingClientRect();
+
+        /*
+            Position the pen near
+            the end of the written line.
+        */
+
+        const x =
+            rect.left -
+            paperRect.left +
+            5;
+
+        const y =
+            rect.top -
+            paperRect.top -
+            13;
+
+        pen.style.left =
+            x + "px";
+
+        pen.style.top =
+            y + "px";
+
+    } catch (error) {
+
+        /*
+            Ignore positioning errors.
+        */
+
+    }
+
+}
+
+
+/* =========================================================
+   TYPE ONE CHARACTER
+========================================================= */
+
+function typeNext() {
+
+    if (
+        index >= text.length
+    ) {
+
+        pen.style.opacity = "0";
+
+        caret.style.opacity = "0";
+
+        return;
+
+    }
+
+
+    handwriting.textContent +=
+        text[index];
+
+    index++;
+
+
+    updateCaret();
+
+    movePen();
+
+
+    /*
+        Slightly slower when spaces
+        or punctuation appear.
+    */
+
+    let delay = 32;
+
+    const character =
+        text[index - 1];
+
+    if (
+        character === "." ||
+        character === "," ||
+        character === "…"
+    ) {
+
+        delay = 240;
+
+    }
+
+    else if (
+        character === " "
+    ) {
+
+        delay = 38;
+
+    }
+
+
+    setTimeout(
+        typeNext,
+        delay
+    );
+
+}
+
+
+/* =========================================================
+   START WRITING
+========================================================= */
+
+function startWriting() {
+
+    startScreen.classList.add(
+        "hidden"
+    );
+
+
+    /*
+        Give the notebook a moment
+        before the pen appears.
+    */
+
+    setTimeout(() => {
+
+        pen.style.opacity = "1";
+
+        caret.style.opacity = "1";
+
+        typeNext();
+
+    }, 1200);
+
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+startButton.addEventListener(
+    "click",
+    startWriting
+);
+
+
+/* =========================================================
+   ALSO ALLOW TAP ON SCREEN
+========================================================= */
+
+startScreen.addEventListener(
+    "click",
+    function(e) {
+
+        if (
+            e.target === startScreen
+        ) {
+
+            startWriting();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
